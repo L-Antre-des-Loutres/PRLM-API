@@ -1,3 +1,7 @@
+### IDE
+.idea
+.vs
+.vscode
 
 ###> symfony/framework-bundle ###
 /.env.local
