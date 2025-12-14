@@ -104,12 +104,19 @@ class Pkmn
     #[ORM\OneToMany(targetEntity: PkmnDexEntries::class, mappedBy: 'pkmn', orphanRemoval: true)]
     private Collection $pkmnDexEntries;
 
+    /**
+     * @var Collection<int, PkmnSpawns>
+     */
+    #[ORM\OneToMany(targetEntity: PkmnSpawns::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    private Collection $pkmnSpawns;
+
     public function __construct()
     {
         $this->movesets = new ArrayCollection();
         $this->futureEvolutions = new ArrayCollection();
         $this->pastEvolutions = new ArrayCollection();
         $this->pkmnDexEntries = new ArrayCollection();
+        $this->pkmnSpawns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -471,6 +478,36 @@ class Pkmn
             // set the owning side to null (unless already changed)
             if ($pkmnDexEntry->getPkmn() === $this) {
                 $pkmnDexEntry->setPkmn(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PkmnSpawns>
+     */
+    public function getPkmnSpawns(): Collection
+    {
+        return $this->pkmnSpawns;
+    }
+
+    public function addPkmnSpawn(PkmnSpawns $pkmnSpawn): static
+    {
+        if (!$this->pkmnSpawns->contains($pkmnSpawn)) {
+            $this->pkmnSpawns->add($pkmnSpawn);
+            $pkmnSpawn->setPkmn($this);
+        }
+
+        return $this;
+    }
+
+    public function removePkmnSpawn(PkmnSpawns $pkmnSpawn): static
+    {
+        if ($this->pkmnSpawns->removeElement($pkmnSpawn)) {
+            // set the owning side to null (unless already changed)
+            if ($pkmnSpawn->getPkmn() === $this) {
+                $pkmnSpawn->setPkmn(null);
             }
         }
 

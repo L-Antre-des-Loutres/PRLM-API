@@ -34,9 +34,16 @@ class GameOrRegion
     #[ORM\OneToMany(targetEntity: PkmnDexEntries::class, mappedBy: 'gameOrRegion', orphanRemoval: true)]
     private Collection $pkmnDexEntries;
 
+    /**
+     * @var Collection<int, PkmnSpawns>
+     */
+    #[ORM\OneToMany(targetEntity: PkmnSpawns::class, mappedBy: 'gameOrRegion', orphanRemoval: true)]
+    private Collection $pkmnSpawns;
+
     public function __construct()
     {
         $this->pkmnDexEntries = new ArrayCollection();
+        $this->pkmnSpawns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,6 +123,36 @@ class GameOrRegion
             // set the owning side to null (unless already changed)
             if ($pkmnDexEntry->getGameOrRegion() === $this) {
                 $pkmnDexEntry->setGameOrRegion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PkmnSpawns>
+     */
+    public function getPkmnSpawns(): Collection
+    {
+        return $this->pkmnSpawns;
+    }
+
+    public function addPkmnSpawn(PkmnSpawns $pkmnSpawn): static
+    {
+        if (!$this->pkmnSpawns->contains($pkmnSpawn)) {
+            $this->pkmnSpawns->add($pkmnSpawn);
+            $pkmnSpawn->setGameOrRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function removePkmnSpawn(PkmnSpawns $pkmnSpawn): static
+    {
+        if ($this->pkmnSpawns->removeElement($pkmnSpawn)) {
+            // set the owning side to null (unless already changed)
+            if ($pkmnSpawn->getGameOrRegion() === $this) {
+                $pkmnSpawn->setGameOrRegion(null);
             }
         }
 
