@@ -73,6 +73,12 @@ class PkmnTypes
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'noEffectOn')]
     private Collection $immuneFrom;
 
+    /**
+     * @var Collection<int, Moves>
+     */
+    #[ORM\OneToMany(targetEntity: Moves::class, mappedBy: 'typeID')]
+    private Collection $moves;
+
     public function __construct()
     {
         $this->superEffectiveOn = new ArrayCollection();
@@ -81,6 +87,7 @@ class PkmnTypes
         $this->resistantTo = new ArrayCollection();
         $this->noEffectOn = new ArrayCollection();
         $this->immuneFrom = new ArrayCollection();
+        $this->moves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,6 +267,36 @@ class PkmnTypes
     {
         if ($this->immuneFrom->removeElement($immuneFrom)) {
             $immuneFrom->removeNoEffectOn($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Moves>
+     */
+    public function getMoves(): Collection
+    {
+        return $this->moves;
+    }
+
+    public function addMove(Moves $move): static
+    {
+        if (!$this->moves->contains($move)) {
+            $this->moves->add($move);
+            $move->setTypeID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMove(Moves $move): static
+    {
+        if ($this->moves->removeElement($move)) {
+            // set the owning side to null (unless already changed)
+            if ($move->getTypeID() === $this) {
+                $move->setTypeID(null);
+            }
         }
 
         return $this;
