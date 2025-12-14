@@ -98,11 +98,18 @@ class Pkmn
     #[ORM\OneToMany(targetEntity: PkmnEvolutions::class, mappedBy: 'evolvedPkmn', orphanRemoval: true)]
     private Collection $pastEvolutions;
 
+    /**
+     * @var Collection<int, PkmnDexEntries>
+     */
+    #[ORM\OneToMany(targetEntity: PkmnDexEntries::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    private Collection $pkmnDexEntries;
+
     public function __construct()
     {
         $this->movesets = new ArrayCollection();
         $this->futureEvolutions = new ArrayCollection();
         $this->pastEvolutions = new ArrayCollection();
+        $this->pkmnDexEntries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -434,6 +441,36 @@ class Pkmn
             // set the owning side to null (unless already changed)
             if ($pastEvolution->getEvolvedPkmn() === $this) {
                 $pastEvolution->setEvolvedPkmn(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PkmnDexEntries>
+     */
+    public function getPkmnDexEntries(): Collection
+    {
+        return $this->pkmnDexEntries;
+    }
+
+    public function addPkmnDexEntry(PkmnDexEntries $pkmnDexEntry): static
+    {
+        if (!$this->pkmnDexEntries->contains($pkmnDexEntry)) {
+            $this->pkmnDexEntries->add($pkmnDexEntry);
+            $pkmnDexEntry->setPkmn($this);
+        }
+
+        return $this;
+    }
+
+    public function removePkmnDexEntry(PkmnDexEntries $pkmnDexEntry): static
+    {
+        if ($this->pkmnDexEntries->removeElement($pkmnDexEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($pkmnDexEntry->getPkmn() === $this) {
+                $pkmnDexEntry->setPkmn(null);
             }
         }
 
