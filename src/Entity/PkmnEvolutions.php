@@ -17,17 +17,17 @@ class PkmnEvolutions
 
     #[ORM\ManyToOne(inversedBy: 'futureEvolutions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Pkmn $evolvingPkmn = null;
+    private Pkmn $evolvingPkmn;
 
     #[ORM\ManyToOne(inversedBy: 'pastEvolutions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Pkmn $evolvedPkmn = null;
+    private Pkmn $evolvedPkmn;
 
     #[ORM\Column(enumType: EvolutionCategory::class)]
-    private ?EvolutionCategory $evolutionCategory = null;
+    private EvolutionCategory $evolutionCategory;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $evolutionWebsiteDesc = null;
+    private string $evolutionWebsiteDesc;
 
     public function getId(): ?int
     {
