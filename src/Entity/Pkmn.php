@@ -86,9 +86,23 @@ class Pkmn
     #[ORM\OneToMany(targetEntity: Movesets::class, mappedBy: 'pkmn', orphanRemoval: true)]
     private Collection $movesets;
 
+    /**
+     * @var Collection<int, PkmnEvolutions>
+     */
+    #[ORM\OneToMany(targetEntity: PkmnEvolutions::class, mappedBy: 'evolvingPkmn', orphanRemoval: true)]
+    private Collection $futureEvolutions;
+
+    /**
+     * @var Collection<int, PkmnEvolutions>
+     */
+    #[ORM\OneToMany(targetEntity: PkmnEvolutions::class, mappedBy: 'evolvedPkmn', orphanRemoval: true)]
+    private Collection $pastEvolutions;
+
     public function __construct()
     {
         $this->movesets = new ArrayCollection();
+        $this->futureEvolutions = new ArrayCollection();
+        $this->pastEvolutions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -360,6 +374,66 @@ class Pkmn
             // set the owning side to null (unless already changed)
             if ($moveset->getPkmn() === $this) {
                 $moveset->setPkmn(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PkmnEvolutions>
+     */
+    public function getFutureEvolutions(): Collection
+    {
+        return $this->futureEvolutions;
+    }
+
+    public function addFutureEvolution(PkmnEvolutions $futureEvolution): static
+    {
+        if (!$this->futureEvolutions->contains($futureEvolution)) {
+            $this->futureEvolutions->add($futureEvolution);
+            $futureEvolution->setEvolvingPkmn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFutureEvolution(PkmnEvolutions $futureEvolution): static
+    {
+        if ($this->futureEvolutions->removeElement($futureEvolution)) {
+            // set the owning side to null (unless already changed)
+            if ($futureEvolution->getEvolvingPkmn() === $this) {
+                $futureEvolution->setEvolvingPkmn(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PkmnEvolutions>
+     */
+    public function getPastEvolutions(): Collection
+    {
+        return $this->pastEvolutions;
+    }
+
+    public function addPastEvolution(PkmnEvolutions $pastEvolution): static
+    {
+        if (!$this->pastEvolutions->contains($pastEvolution)) {
+            $this->pastEvolutions->add($pastEvolution);
+            $pastEvolution->setEvolvedPkmn($this);
+        }
+
+        return $this;
+    }
+
+    public function removePastEvolution(PkmnEvolutions $pastEvolution): static
+    {
+        if ($this->pastEvolutions->removeElement($pastEvolution)) {
+            // set the owning side to null (unless already changed)
+            if ($pastEvolution->getEvolvedPkmn() === $this) {
+                $pastEvolution->setEvolvedPkmn(null);
             }
         }
 
