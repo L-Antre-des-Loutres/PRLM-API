@@ -36,13 +36,13 @@ class Moves
     private ?int $baseAccuracy = null;
 
     #[ORM\Column]
-    private ?int $basePP = null;
+    private int $basePP;
 
     #[ORM\Column(enumType: MoveRange::class)]
-    private ?MoveRange $moveRange = null;
+    private MoveRange $moveRange;
 
     #[ORM\Column(enumType: MoveCategory::class)]
-    private ?MoveCategory $Category = null;
+    private MoveCategory $Category;
 
     public function getId(): ?int
     {
