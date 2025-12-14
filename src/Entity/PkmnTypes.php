@@ -26,6 +26,7 @@ class PkmnTypes
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'immuneFrom')]
+    #[ORM\JoinTable(name: 'pkmn_types_immunities')]
     private Collection $immuneToList;
 
     /**
@@ -38,6 +39,7 @@ class PkmnTypes
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'resistantFrom')]
+    #[ORM\JoinTable(name: 'pkmn_types_resistances')]
     private Collection $resistantTo;
 
     /**
@@ -50,6 +52,7 @@ class PkmnTypes
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'weakFrom')]
+    #[ORM\JoinTable(name: 'pkmn_types_weaknesses')]
     private Collection $weakTo;
 
     /**
@@ -62,6 +65,7 @@ class PkmnTypes
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'noEffectFrom')]
+    #[ORM\JoinTable(name: 'pkmn_types_no_effect')]
     private Collection $noEffectOn;
 
     /**
@@ -74,6 +78,7 @@ class PkmnTypes
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'superEffectiveFrom')]
+    #[ORM\JoinTable(name: 'pkmn_types_super_effective')]
     private Collection $superEffectiveOn;
 
     /**
@@ -86,6 +91,7 @@ class PkmnTypes
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'notVeryEffectiveFrom')]
+    #[ORM\JoinTable(name: 'pkmn_types_not_very_effective')]
     private Collection $notVeryEffectiveOn;
 
     /**
