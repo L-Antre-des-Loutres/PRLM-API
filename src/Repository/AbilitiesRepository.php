@@ -16,6 +16,10 @@ class AbilitiesRepository extends ServiceEntityRepository
         parent::__construct($registry, Abilities::class);
     }
 
+    public function findById(int $id): ?Abilities
+    {
+        return $this->find($id);    
+    }                           
     //    /**
     //     * @return Abilities[] Returns an array of Abilities objects
     //     */
