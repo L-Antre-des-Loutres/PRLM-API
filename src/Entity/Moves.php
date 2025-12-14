@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Enum\MoveCategory;
 use App\Enum\MoveRange;
 use App\Repository\MovesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,17 @@ class Moves
 
     #[ORM\Column(enumType: MoveCategory::class)]
     private MoveCategory $Category;
+
+    /**
+     * @var Collection<int, Movesets>
+     */
+    #[ORM\OneToMany(targetEntity: Movesets::class, mappedBy: 'move', orphanRemoval: true)]
+    private Collection $movesets;
+
+    public function __construct()
+    {
+        $this->movesets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -153,6 +166,36 @@ class Moves
     public function setCategory(MoveCategory $Category): static
     {
         $this->Category = $Category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Movesets>
+     */
+    public function getMovesets(): Collection
+    {
+        return $this->movesets;
+    }
+
+    public function addMoveset(Movesets $moveset): static
+    {
+        if (!$this->movesets->contains($moveset)) {
+            $this->movesets->add($moveset);
+            $moveset->setMove($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMoveset(Movesets $moveset): static
+    {
+        if ($this->movesets->removeElement($moveset)) {
+            // set the owning side to null (unless already changed)
+            if ($moveset->getMove() === $this) {
+                $moveset->setMove(null);
+            }
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PkmnRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -77,6 +79,17 @@ class Pkmn
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cryFile = null;
+
+    /**
+     * @var Collection<int, Movesets>
+     */
+    #[ORM\OneToMany(targetEntity: Movesets::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    private Collection $movesets;
+
+    public function __construct()
+    {
+        $this->movesets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -319,6 +332,36 @@ class Pkmn
     public function setCryFile(?string $cryFile): static
     {
         $this->cryFile = $cryFile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Movesets>
+     */
+    public function getMovesets(): Collection
+    {
+        return $this->movesets;
+    }
+
+    public function addMoveset(Movesets $moveset): static
+    {
+        if (!$this->movesets->contains($moveset)) {
+            $this->movesets->add($moveset);
+            $moveset->setPkmn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMoveset(Movesets $moveset): static
+    {
+        if ($this->movesets->removeElement($moveset)) {
+            // set the owning side to null (unless already changed)
+            if ($moveset->getPkmn() === $this) {
+                $moveset->setPkmn(null);
+            }
+        }
 
         return $this;
     }
