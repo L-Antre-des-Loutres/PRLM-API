@@ -15,13 +15,13 @@ class Abilities
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column(length: 100)]
-    private ?string $inGameDescription = null;
+    private string $inGameDescription;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $websiteDescription = null;
+    private string $websiteDescription;
 
     public function getId(): ?int
     {
