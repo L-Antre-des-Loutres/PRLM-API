@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/abilities', name: 'app_abilities_')]
+#[Route('/api/abilities', name: 'app_abilities')]
 final class AbilitiesController extends AbstractController
 {
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Abilities $ability): JsonResponse
+    public function show(Abilities $abilities): JsonResponse
     {
-        return $this->json($ability);
+        return $this->json($abilities);
     }
 }
