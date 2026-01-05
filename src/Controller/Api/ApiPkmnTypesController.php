@@ -13,12 +13,16 @@ use Symfony\Component\HttpFoundation\Response;
 #[Route('/api/types', name: 'app_api_pkmn_types')]
 final class ApiPkmnTypesController extends AbstractController
 {
+    public function __construct(
+        private readonly EntityManagerInterface $em
+    ) {}
+
     // Get
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(?PkmnTypes $pkmnTypes): JsonResponse
     {
         if (!$pkmnTypes) {
-            return $this->json(['message' => 'Not found'], 404);
+            return $this->json(['message' => 'Type not found'], 404);
         }
 
         return $this->json($pkmnTypes, 200, [], [
@@ -29,23 +33,27 @@ final class ApiPkmnTypesController extends AbstractController
 
     // Create a type with NO RELATION to any other type
     #[Route('', name: 'create', methods: ['POST'])]
-    public function create(Request $request, EntityManagerInterface $em): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $data = $request->toArray(); // JSON sent by client
+
+        if (empty($data['name']) || empty($data['websiteDescription'])) {
+            return $this->json(['message' => 'Missing required fields'], 400); // 400 Bad Request
+        }
 
         $type = new PkmnTypes();
         $type->setName($data['name']);
         $type->setWebsiteDescription($data['websiteDescription']);
 
-        $em->persist($type);
-        $em->flush();
+        $this->em->persist($type);
+        $this->em->flush();
 
         return $this->json($type, Response::HTTP_CREATED, [], ['groups' => 'type:read']);
     }
 
     // Update
     #[Route('/{id}', name: 'update', methods: ['PUT', 'PATCH'])]
-    public function update(PkmnTypes $pkmnTypes, Request $request, EntityManagerInterface $em): JsonResponse
+    public function update(PkmnTypes $pkmnTypes, Request $request): JsonResponse
     {
         $data = $request->toArray();
 
@@ -56,17 +64,17 @@ final class ApiPkmnTypesController extends AbstractController
             $pkmnTypes->setWebsiteDescription($data['websiteDescription']);
         }
 
-        $em->flush();
+        $this->em->flush();
 
         return $this->json($pkmnTypes, Response::HTTP_OK, [], ['groups' => 'type:read']);
     }
 
     // Delete
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
-    public function delete(PkmnTypes $pkmnTypes, EntityManagerInterface $em): JsonResponse
+    public function delete(PkmnTypes $pkmnTypes): JsonResponse
     {
-        $em->remove($pkmnTypes);
-        $em->flush();
+        $this->em->remove($pkmnTypes);
+        $this->em->flush();
 
         return $this->json(null, Response::HTTP_NO_CONTENT);
     }
