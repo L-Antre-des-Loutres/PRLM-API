@@ -6,8 +6,7 @@ use App\Entity\PkmnTypes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
-
-
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,13 +62,24 @@ final class ApiPkmnTypesController extends AbstractController
         return $this->json($pkmnTypes, Response::HTTP_OK, [], ['groups' => 'type:read']);
     }
 
-    // Delete
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
-    public function delete(PkmnTypes $pkmnTypes, EntityManagerInterface $em): JsonResponse
+    public function delete(
+        PkmnTypes $pkmnTypes,
+        EntityManagerInterface $em,
+        Request $request,
+        #[Autowire('%env(SECRET_TOKEN)%')] string $apiToken // Secret token
+    ): JsonResponse
     {
+        $authHeader = $request->headers->get('X-AUTH-TOKEN'); // Token sent by client
+
+        if ($authHeader !== $apiToken) {
+            return $this->json(['message' => 'Accès non autorisé'], 401);
+        }
+
+        // Authorized
         $em->remove($pkmnTypes);
         $em->flush();
 
-        return $this->json(null, Response::HTTP_NO_CONTENT); // 204
+        return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 }
