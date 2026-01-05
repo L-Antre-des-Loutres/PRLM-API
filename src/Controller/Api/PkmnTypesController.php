@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Route('/api/types', name: 'app_api_pkmn_types')]
-final class ApiPkmnTypesController extends AbstractController
+final class PkmnTypesController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em
