@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: PkmnTypesRepository::class)]
@@ -35,12 +36,16 @@ class PkmnTypes
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'weakTo')]
     #[ORM\JoinTable(name: 'pkmn_types_super_effective')]
+    #[Groups(['type:read'])]
+    #[MaxDepth(1)]
     private Collection $superEffectiveOn;
 
     /**
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'superEffectiveOn')]
+    #[Groups(['type:read'])]
+    #[MaxDepth(1)]
     private Collection $weakTo;
 
     /* -------------------------------------------------------------------------- */
@@ -52,12 +57,16 @@ class PkmnTypes
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'resistantTo')]
     #[ORM\JoinTable(name: 'pkmn_types_not_very_effective')]
+    #[Groups(['type:read'])]
+    #[MaxDepth(1)]
     private Collection $notVeryEffectiveOn;
 
     /**
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'notVeryEffectiveOn')]
+    #[Groups(['type:read'])]
+    #[MaxDepth(1)]
     private Collection $resistantTo;
 
     /* -------------------------------------------------------------------------- */
@@ -69,12 +78,16 @@ class PkmnTypes
      */
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'immuneFrom')]
     #[ORM\JoinTable(name: 'pkmn_types_no_effect')]
+    #[Groups(['type:read'])]
+    #[MaxDepth(1)]
     private Collection $noEffectOn;
 
     /**
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'noEffectOn')]
+    #[Groups(['type:read'])]
+    #[MaxDepth(1)]
     private Collection $immuneFrom;
 
     /**

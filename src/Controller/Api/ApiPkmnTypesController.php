@@ -23,7 +23,10 @@ final class ApiPkmnTypesController extends AbstractController
             return $this->json(['message' => 'Not found'], 404);
         }
 
-        return $this->json($pkmnTypes, 200, [], ['groups' => 'type:read']);
+        return $this->json($pkmnTypes, 200, [], [
+            'groups' => 'type:read',
+            'enable_max_depth' => true
+        ]);
     }
 
     // Create a type with NO RELATION to any other type
@@ -48,8 +51,7 @@ final class ApiPkmnTypesController extends AbstractController
     {
         $data = $request->toArray();
 
-        // On met à jour seulement si la donnée est présente
-        if (isset($data['name'])) {
+        if (isset($data['name'])) { // isset = is set
             $pkmnTypes->setName($data['name']);
         }
         if (isset($data['websiteDescription'])) {
@@ -68,7 +70,6 @@ final class ApiPkmnTypesController extends AbstractController
         $em->remove($pkmnTypes);
         $em->flush();
 
-        // On retourne une réponse vide avec le code 204 (No Content)
-        return $this->json(null, Response::HTTP_NO_CONTENT);
+        return $this->json(null, Response::HTTP_NO_CONTENT); // 204
     }
 }
