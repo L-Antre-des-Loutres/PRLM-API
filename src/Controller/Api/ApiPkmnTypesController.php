@@ -15,24 +15,26 @@ use Symfony\Component\HttpFoundation\Response;
 #[Route('/api/types', name: 'app_api_pkmn_types')]
 final class ApiPkmnTypesController extends AbstractController
 {
+    // Get
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(PkmnTypes $pkmnTypes): JsonResponse
+    public function show(?PkmnTypes $pkmnTypes): JsonResponse
     {
+        if (!$pkmnTypes) {
+            return $this->json(['message' => 'Not found'], 404);
+        }
+
         return $this->json($pkmnTypes, 200, [], ['groups' => 'type:read']);
     }
 
+    // Create a type with NO RELATION to any other type
     #[Route('', name: 'create', methods: ['POST'])]
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
-        // Récupère le JSON envoyé par le client
-        $data = $request->toArray();
+        $data = $request->toArray(); // JSON sent by client
 
         $type = new PkmnTypes();
         $type->setName($data['name']);
         $type->setWebsiteDescription($data['websiteDescription']);
-
-        // Note : Pour gérer les relations (ex: superEffectiveOn) ici,
-        // il faudrait récupérer les IDs envoyés et faire des $em->getReference()
 
         $em->persist($type);
         $em->flush();
@@ -40,6 +42,7 @@ final class ApiPkmnTypesController extends AbstractController
         return $this->json($type, Response::HTTP_CREATED, [], ['groups' => 'type:read']);
     }
 
+    // Update
     #[Route('/{id}', name: 'update', methods: ['PUT', 'PATCH'])]
     public function update(PkmnTypes $pkmnTypes, Request $request, EntityManagerInterface $em): JsonResponse
     {
@@ -58,6 +61,7 @@ final class ApiPkmnTypesController extends AbstractController
         return $this->json($pkmnTypes, Response::HTTP_OK, [], ['groups' => 'type:read']);
     }
 
+    // Delete
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(PkmnTypes $pkmnTypes, EntityManagerInterface $em): JsonResponse
     {
