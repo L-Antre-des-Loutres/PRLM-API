@@ -7,12 +7,64 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
+
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 #[Route('/api/types', name: 'app_api_pkmn_types')]
 final class ApiPkmnTypesController extends AbstractController
 {
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(PkmnTypes $pkmnTypes): JsonResponse
     {
-        return $this->json($pkmnTypes);
+        return $this->json($pkmnTypes, 200, [], ['groups' => 'type:read']);
+    }
+
+    #[Route('', name: 'create', methods: ['POST'])]
+    public function create(Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        // Récupère le JSON envoyé par le client
+        $data = $request->toArray();
+
+        $type = new PkmnTypes();
+        $type->setName($data['name']);
+        $type->setWebsiteDescription($data['websiteDescription']);
+
+        // Note : Pour gérer les relations (ex: superEffectiveOn) ici,
+        // il faudrait récupérer les IDs envoyés et faire des $em->getReference()
+
+        $em->persist($type);
+        $em->flush();
+
+        return $this->json($type, Response::HTTP_CREATED, [], ['groups' => 'type:read']);
+    }
+
+    #[Route('/{id}', name: 'update', methods: ['PUT', 'PATCH'])]
+    public function update(PkmnTypes $pkmnTypes, Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        $data = $request->toArray();
+
+        // On met à jour seulement si la donnée est présente
+        if (isset($data['name'])) {
+            $pkmnTypes->setName($data['name']);
+        }
+        if (isset($data['websiteDescription'])) {
+            $pkmnTypes->setWebsiteDescription($data['websiteDescription']);
+        }
+
+        $em->flush();
+
+        return $this->json($pkmnTypes, Response::HTTP_OK, [], ['groups' => 'type:read']);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
+    public function delete(PkmnTypes $pkmnTypes, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($pkmnTypes);
+        $em->flush();
+
+        // On retourne une réponse vide avec le code 204 (No Content)
+        return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 }
