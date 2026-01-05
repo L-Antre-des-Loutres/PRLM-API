@@ -66,9 +66,6 @@ final class ApiPkmnTypesController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(PkmnTypes $pkmnTypes, EntityManagerInterface $em): JsonResponse
     {
-        // PLUS BESOIN DE VÉRIFIER LE TOKEN ICI !
-        // Si on arrive ici, c'est que Symfony a déjà validé le token via le security.yaml
-
         $em->remove($pkmnTypes);
         $em->flush();
 
