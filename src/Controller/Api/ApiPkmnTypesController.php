@@ -17,7 +17,21 @@ final class ApiPkmnTypesController extends AbstractController
         private readonly EntityManagerInterface $em
     ) {}
 
-    // Get
+    // Get all at once
+    #[Route('', name: 'index', methods: ['GET'])]
+    public function index(): JsonResponse
+    {
+        $repository = $this->em->getRepository(PkmnTypes::class);
+
+        $types = $repository->findAll();
+
+        return $this->json($types, Response::HTTP_OK, [], [
+            'groups' => 'type:read',
+            'enable_max_depth' => true
+        ]);
+    }
+
+    // Get by id
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(?PkmnTypes $pkmnTypes): JsonResponse
     {
