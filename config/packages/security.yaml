@@ -11,33 +11,33 @@ security:
                 class: App\Entity\User
                 property: username
 
-firewalls:
-    dev:
-        pattern: ^/(_(profiler|wdt)|css|images|js)/
-        security: false
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
 
-    # 1. PARE-FEU API (Sans session, sans login form)
-    api:
-        pattern: ^/api
-        stateless: true
-        provider: app_user_provider
-        custom_authenticators:
-            - App\Security\ApiKeyAuthenticator
+        # 1. PARE-FEU API (Sans session, sans login form)
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: app_user_provider
+            custom_authenticators:
+                - App\Security\ApiKeyAuthenticator
 
-    # 2. PARE-FEU ADMIN / SITE (Avec session, cookie et login form)
-    main:
-        lazy: true
-        provider: app_user_provider
+        # 2. PARE-FEU ADMIN / SITE (Avec session, cookie et login form)
+        main:
+            lazy: true
+            provider: app_user_provider
 
-        # Authentification by form
-        form_login:
-            login_path: app_login
-            check_path: app_login
-            enable_csrf: true
+            # Authentification by form
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
 
-        logout:
-            path: app_logout
-            target: app_login
+            logout:
+                path: app_logout
+                target: app_login
 
     access_control:
         # --- API RULES ---
