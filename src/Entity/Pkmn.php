@@ -7,7 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use PHPUnit\TextUI\Configuration\File;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: PkmnRepository::class)]
 class Pkmn
@@ -15,100 +17,128 @@ class Pkmn
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $regionalDexID;
 
     #[ORM\Column(length: 20)]
+    #[Groups(['pkmn:read'])]
     private string $name;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['pkmn:read'])]
     private string $websiteDescription;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private PkmnTypes $firstType;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?PkmnTypes $secondType = null;
 
     #[ORM\Column(length: 30)]
+    #[Groups(['pkmn:read'])]
     private string $categoryName;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $height;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $weight;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private Abilities $firstAbility;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?Abilities $secondAbility = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?Abilities $hiddenAbility = null;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $evYieldStat;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $evYieldQuantity;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $baseExpYield;
 
     #[ORM\ManyToOne(inversedBy: 'pkmns')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private LevelingRate $levelingRate;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $baseFriendship;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private EggGroups $firstEggGroup;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?EggGroups $secondEggGroup = null;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $hatchTimeInCycle;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['pkmn:read'])]
     private ?string $cryFile = null;
 
     /**
      * @var Collection<int, Movesets>
      */
     #[ORM\OneToMany(targetEntity: Movesets::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
     private Collection $movesets;
 
     /**
      * @var Collection<int, PkmnEvolutions>
      */
     #[ORM\OneToMany(targetEntity: PkmnEvolutions::class, mappedBy: 'evolvingPkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
+    #[MaxDepth(1)]
     private Collection $futureEvolutions;
 
     /**
      * @var Collection<int, PkmnEvolutions>
      */
     #[ORM\OneToMany(targetEntity: PkmnEvolutions::class, mappedBy: 'evolvedPkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
+    #[MaxDepth(1)]
     private Collection $pastEvolutions;
 
     /**
      * @var Collection<int, PkmnDexEntries>
      */
     #[ORM\OneToMany(targetEntity: PkmnDexEntries::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
     private Collection $pkmnDexEntries;
 
     /**
      * @var Collection<int, PkmnSpawns>
      */
     #[ORM\OneToMany(targetEntity: PkmnSpawns::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
     private Collection $pkmnSpawns;
 
     // =======
