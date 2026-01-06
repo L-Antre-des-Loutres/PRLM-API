@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+// N'oubliez pas use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api/pkmn', name: 'app_api_pkmn')]
 final class PkmnController extends AbstractController
@@ -45,13 +46,13 @@ final class PkmnController extends AbstractController
         ]);
     }
 
-    // Create a Pkmn with relations
+// Create a Pkmn with relations
     #[Route('', name: 'create', methods: ['POST'])]
     public function create(Request $request): JsonResponse
     {
         $data = $request->toArray();
 
-        // 1. Validate mandatory scalar fields
+        // Validate mandatory scalar fields
         $requiredFields = ['name', 'regionalDexID', 'firstTypeId', 'firstAbilityId', 'levelingRateId', 'firstEggGroupId'];
         foreach ($requiredFields as $field) {
             if (empty($data[$field])) {
@@ -68,8 +69,14 @@ final class PkmnController extends AbstractController
         $pkmn->setCategoryName($data['categoryName'] ?? 'Unknown');
         $pkmn->setHeight((int)($data['height'] ?? 0));
         $pkmn->setWeight((int)($data['weight'] ?? 0));
-        $pkmn->setEvYieldStat((int)($data['evYieldStat'] ?? 0));
-        $pkmn->setEvYieldQuantity((int)($data['evYieldQuantity'] ?? 0));
+
+        if (isset($data['stats']) && is_array($data['stats'])) {
+            $pkmn->setStats($data['stats']);
+        }
+        if (isset($data['evYield']) && is_array($data['evYield'])) {
+            $pkmn->setEvYield($data['evYield']);
+        }
+
         $pkmn->setBaseExpYield((int)($data['baseExpYield'] ?? 0));
         $pkmn->setBaseFriendship((int)($data['baseFriendship'] ?? 70));
         $pkmn->setHatchTimeInCycle((int)($data['hatchTimeInCycle'] ?? 20));
@@ -123,8 +130,14 @@ final class PkmnController extends AbstractController
         if (isset($data['categoryName'])) $pkmn->setCategoryName($data['categoryName']);
         if (isset($data['height'])) $pkmn->setHeight((int)$data['height']);
         if (isset($data['weight'])) $pkmn->setWeight((int)$data['weight']);
-        if (isset($data['evYieldStat'])) $pkmn->setEvYieldStat((int)$data['evYieldStat']);
-        if (isset($data['evYieldQuantity'])) $pkmn->setEvYieldQuantity((int)$data['evYieldQuantity']);
+
+        if (isset($data['stats']) && is_array($data['stats'])) {
+            $pkmn->setStats($data['stats']);
+        }
+        if (isset($data['evYield']) && is_array($data['evYield'])) {
+            $pkmn->setEvYield($data['evYield']);
+        }
+
         if (isset($data['baseExpYield'])) $pkmn->setBaseExpYield((int)$data['baseExpYield']);
         if (isset($data['baseFriendship'])) $pkmn->setBaseFriendship((int)$data['baseFriendship']);
         if (isset($data['hatchTimeInCycle'])) $pkmn->setHatchTimeInCycle((int)$data['hatchTimeInCycle']);

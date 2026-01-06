@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PkmnRepository::class)]
 class Pkmn
@@ -66,13 +67,37 @@ class Pkmn
     #[Groups(['pkmn:read'])]
     private ?Abilities $hiddenAbility = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::JSON)]
+    #[Assert\Collection(
+        fields: [
+            'hp'              => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'attack'          => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'defense'         => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_attack'  => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_defense' => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'speed'           => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+        ],
+        allowExtraFields: false,
+        missingFieldsMessage: 'La stat {{ field }} est manquante.'
+    )]
     #[Groups(['pkmn:read'])]
-    private int $evYieldStat;
+    private array $stats = [];
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::JSON)]
+    #[Assert\Collection(
+        fields: [
+            'hp'              => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'attack'          => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'defense'         => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_attack'  => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_defense' => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'speed'           => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+        ],
+        allowExtraFields: false,
+        missingFieldsMessage: 'La stat {{ field }} est manquante.'
+    )]
     #[Groups(['pkmn:read'])]
-    private int $evYieldQuantity;
+    private array $evYield = [];
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
@@ -177,6 +202,18 @@ class Pkmn
         $this->pastEvolutions = new ArrayCollection();
         $this->pkmnDexEntries = new ArrayCollection();
         $this->pkmnSpawns = new ArrayCollection();
+
+        $defaultStats = [
+            'hp' => 0,
+            'attack' => 0,
+            'defense' => 0,
+            'special_attack' => 0,
+            'special_defense' => 0,
+            'speed' => 0
+        ];
+
+        $this->stats = $defaultStats;
+        $this->evYield = $defaultStats;
     }
 
     public function getId(): ?int
@@ -316,21 +353,24 @@ class Pkmn
         return $this;
     }
 
-    public function getEvYieldStat(): ?int
+    public function getStats(): array
     {
-        return $this->evYieldStat;
+        return $this->stats;
     }
 
-    public function setEvYieldStat(int $evYieldStat): static
+    public function setStats(array $stats): void
     {
-        $this->evYieldStat = $evYieldStat;
-
-        return $this;
+        $this->stats = $stats;
     }
 
-    public function getEvYieldQuantity(): ?int
+    public function getEvYield(): array
     {
-        return $this->evYieldQuantity;
+        return $this->evYield;
+    }
+
+    public function setEvYield(array $evYield): void
+    {
+        $this->evYield = $evYield;
     }
 
     public function setEvYieldQuantity(int $evYieldQuantity): static
