@@ -1,3 +1,17 @@
+:root {
+    --page_background: white;
+    --header_background: skyblue;
+}
+
 body {
-    background-color: skyblue;
+    background-color: var(--page_background);
+    margin: 0;
+}
+
+header {
+    background-color: var(--header_background);
+}
+
+main {
+    margin: 1em;
 }
