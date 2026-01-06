@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use PHPUnit\TextUI\Configuration\File;
 
 #[ORM\Entity(repositoryClass: PkmnRepository::class)]
 class Pkmn
@@ -109,6 +110,35 @@ class Pkmn
      */
     #[ORM\OneToMany(targetEntity: PkmnSpawns::class, mappedBy: 'pkmn', orphanRemoval: true)]
     private Collection $pkmnSpawns;
+
+    // =======
+    // SPRITES
+    // =======
+
+    #[Vich\UploadableField(mapping: 'pkmn_images', fileNameProperty: 'spriteName')]
+    private ?File $spriteFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $spriteName = null;
+
+    #[Vich\UploadableField(mapping: 'pkmn_images', fileNameProperty: 'shinySpriteName')]
+    private ?File $shinySpriteFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $shinySpriteName = null;
+
+    #[Vich\UploadableField(mapping: 'pkmn_images', fileNameProperty: 'artworkName')]
+    private ?File $artworkFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $artworkName = null;
+
+    // ==========
+    // UPDATED AT
+    // ==========
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -512,5 +542,65 @@ class Pkmn
         }
 
         return $this;
+    }
+
+    public function getSpriteFile(): ?File
+    {
+        return $this->spriteFile;
+    }
+
+    public function setSpriteFile(?File $spriteFile): void
+    {
+        $this->spriteFile = $spriteFile;
+    }
+
+    public function getSpriteName(): ?string
+    {
+        return $this->spriteName;
+    }
+
+    public function setSpriteName(?string $spriteName): void
+    {
+        $this->spriteName = $spriteName;
+    }
+
+    public function getShinySpriteFile(): ?File
+    {
+        return $this->shinySpriteFile;
+    }
+
+    public function setShinySpriteFile(?File $shinySpriteFile): void
+    {
+        $this->shinySpriteFile = $shinySpriteFile;
+    }
+
+    public function getShinySpriteName(): ?string
+    {
+        return $this->shinySpriteName;
+    }
+
+    public function setShinySpriteName(?string $shinySpriteName): void
+    {
+        $this->shinySpriteName = $shinySpriteName;
+    }
+
+    public function getArtworkFile(): ?File
+    {
+        return $this->artworkFile;
+    }
+
+    public function setArtworkFile(?File $artworkFile): void
+    {
+        $this->artworkFile = $artworkFile;
+    }
+
+    public function getArtworkName(): ?string
+    {
+        return $this->artworkName;
+    }
+
+    public function setArtworkName(?string $artworkName): void
+    {
+        $this->artworkName = $artworkName;
     }
 }
