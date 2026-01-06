@@ -46,14 +46,14 @@ final class PkmnController extends AbstractController
         ]);
     }
 
-// Create a Pkmn with relations
+    // Create a Pkmn with relations
     #[Route('', name: 'create', methods: ['POST'])]
     public function create(Request $request): JsonResponse
     {
         $data = $request->toArray();
 
         // Validate mandatory scalar fields
-        $requiredFields = ['name', 'regionalDexID', 'firstTypeId', 'firstAbilityId', 'levelingRateId', 'firstEggGroupId'];
+        $requiredFields = ['name', 'regionalDexID', 'nationalDexID', 'formID', 'firstTypeId', 'firstAbilityId', 'levelingRateId', 'firstEggGroupId'];
         foreach ($requiredFields as $field) {
             if (empty($data[$field])) {
                 return $this->json(['message' => "Missing required field: $field"], Response::HTTP_BAD_REQUEST);
@@ -65,6 +65,8 @@ final class PkmnController extends AbstractController
         // Set Scalar Data
         $pkmn->setName($data['name']);
         $pkmn->setRegionalDexID((int)$data['regionalDexID']);
+        $pkmn->setNationalDexID((int)$data['nationalDexID']);
+        $pkmn->setFormID((int)$data['formID']);
         $pkmn->setWebsiteDescription($data['websiteDescription'] ?? '');
         $pkmn->setCategoryName($data['categoryName'] ?? 'Unknown');
         $pkmn->setHeight((int)($data['height'] ?? 0));
@@ -126,6 +128,8 @@ final class PkmnController extends AbstractController
         // Update Scalar Data
         if (isset($data['name'])) $pkmn->setName($data['name']);
         if (isset($data['regionalDexID'])) $pkmn->setRegionalDexID((int)$data['regionalDexID']);
+        if (isset($data['nationalDexID'])) $pkmn->setNationalDexID((int)$data['nationalDexID']);
+        if (isset($data['formID'])) $pkmn->setFormID((int)$data['formID']);
         if (isset($data['websiteDescription'])) $pkmn->setWebsiteDescription($data['websiteDescription']);
         if (isset($data['categoryName'])) $pkmn->setCategoryName($data['categoryName']);
         if (isset($data['height'])) $pkmn->setHeight((int)$data['height']);

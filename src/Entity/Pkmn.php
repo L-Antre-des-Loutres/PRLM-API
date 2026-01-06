@@ -23,7 +23,15 @@ class Pkmn
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    private int $nationalDexID;
+
+    #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $regionalDexID;
+
+    #[ORM\Column]
+    #[Groups(['pkmn:read'])]
+    private int $formID;
 
     #[ORM\Column(length: 20)]
     #[Groups(['pkmn:read'])]
@@ -221,6 +229,16 @@ class Pkmn
         return $this->id;
     }
 
+    public function getNationalDexID(): int
+    {
+        return $this->nationalDexID;
+    }
+
+    public function setNationalDexID(int $nationalDexID): void
+    {
+        $this->nationalDexID = $nationalDexID;
+    }
+
     public function getRegionalDexID(): ?int
     {
         return $this->regionalDexID;
@@ -231,6 +249,16 @@ class Pkmn
         $this->regionalDexID = $regionalDexID;
 
         return $this;
+    }
+
+    public function getFormID(): int
+    {
+        return $this->formID;
+    }
+
+    public function setFormID(int $formID): void
+    {
+        $this->formID = $formID;
     }
 
     public function getName(): ?string
