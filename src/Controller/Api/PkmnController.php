@@ -7,6 +7,7 @@ use App\Entity\EggGroups;
 use App\Entity\LevelingRate;
 use App\Entity\Pkmn;
 use App\Entity\PkmnTypes;
+use App\Repository\PkmnRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,11 +36,22 @@ final class PkmnController extends AbstractController
         ]);
     }
 
-    // Get by id
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Pkmn $pkmn): JsonResponse
+    // Get by id (int) OR by name (string)
+    #[Route('/{identifier}', name: 'show', methods: ['GET'])]
+    public function show(string $identifier, PkmnRepository $repository): JsonResponse
     {
-        // Symfony handles 404 automatically due to strict typing
+        // Check if the identifier is numeric (ID) or string (Name)
+        if (is_numeric($identifier)) {
+            $pkmn = $repository->find((int) $identifier);
+        } else {
+            $pkmn = $repository->findOneBy(['name' => $identifier]);
+        }
+
+        // Handle 404 manually
+        if (!$pkmn) {
+            return $this->json(['message' => 'Pkmn not found'], Response::HTTP_NOT_FOUND);
+        }
+
         return $this->json($pkmn, Response::HTTP_OK, [], [
             'groups' => 'pkmn:read',
             'enable_max_depth' => true
