@@ -5,6 +5,7 @@
 
 body {
     background-color: var(--page_background);
+    font-family: "Arial", serif;
     margin: 0;
 }
 
