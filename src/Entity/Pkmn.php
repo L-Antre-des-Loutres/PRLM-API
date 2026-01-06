@@ -7,7 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use PHPUnit\TextUI\Configuration\File;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PkmnRepository::class)]
 class Pkmn
@@ -15,100 +18,160 @@ class Pkmn
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
+    private int $nationalDexID;
+
+    #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $regionalDexID;
 
+    #[ORM\Column]
+    #[Groups(['pkmn:read'])]
+    private int $formID;
+
     #[ORM\Column(length: 20)]
+    #[Groups(['pkmn:read'])]
     private string $name;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['pkmn:read'])]
     private string $websiteDescription;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private PkmnTypes $firstType;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?PkmnTypes $secondType = null;
 
     #[ORM\Column(length: 30)]
+    #[Groups(['pkmn:read'])]
     private string $categoryName;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $height;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $weight;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private Abilities $firstAbility;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?Abilities $secondAbility = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?Abilities $hiddenAbility = null;
 
-    #[ORM\Column]
-    private int $evYieldStat;
+    #[ORM\Column(type: Types::JSON)]
+    #[Assert\Collection(
+        fields: [
+            'hp'              => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'attack'          => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'defense'         => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_attack'  => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_defense' => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'speed'           => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+        ],
+        allowExtraFields: false,
+        missingFieldsMessage: 'La stat {{ field }} est manquante.'
+    )]
+    #[Groups(['pkmn:read'])]
+    private array $stats = [];
+
+    #[ORM\Column(type: Types::JSON)]
+    #[Assert\Collection(
+        fields: [
+            'hp'              => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'attack'          => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'defense'         => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_attack'  => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'special_defense' => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+            'speed'           => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
+        ],
+        allowExtraFields: false,
+        missingFieldsMessage: 'La stat {{ field }} est manquante.'
+    )]
+    #[Groups(['pkmn:read'])]
+    private array $evYield = [];
 
     #[ORM\Column]
-    private int $evYieldQuantity;
-
-    #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $baseExpYield;
 
     #[ORM\ManyToOne(inversedBy: 'pkmns')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private LevelingRate $levelingRate;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $baseFriendship;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['pkmn:read'])]
     private EggGroups $firstEggGroup;
 
     #[ORM\ManyToOne]
+    #[Groups(['pkmn:read'])]
     private ?EggGroups $secondEggGroup = null;
 
     #[ORM\Column]
+    #[Groups(['pkmn:read'])]
     private int $hatchTimeInCycle;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['pkmn:read'])]
     private ?string $cryFile = null;
 
     /**
      * @var Collection<int, Movesets>
      */
     #[ORM\OneToMany(targetEntity: Movesets::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
     private Collection $movesets;
 
     /**
      * @var Collection<int, PkmnEvolutions>
      */
     #[ORM\OneToMany(targetEntity: PkmnEvolutions::class, mappedBy: 'evolvingPkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
+    #[MaxDepth(1)]
     private Collection $futureEvolutions;
 
     /**
      * @var Collection<int, PkmnEvolutions>
      */
     #[ORM\OneToMany(targetEntity: PkmnEvolutions::class, mappedBy: 'evolvedPkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
+    #[MaxDepth(1)]
     private Collection $pastEvolutions;
 
     /**
      * @var Collection<int, PkmnDexEntries>
      */
     #[ORM\OneToMany(targetEntity: PkmnDexEntries::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
     private Collection $pkmnDexEntries;
 
     /**
      * @var Collection<int, PkmnSpawns>
      */
     #[ORM\OneToMany(targetEntity: PkmnSpawns::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    #[Groups(['pkmn:read'])]
     private Collection $pkmnSpawns;
 
     // =======
@@ -147,11 +210,33 @@ class Pkmn
         $this->pastEvolutions = new ArrayCollection();
         $this->pkmnDexEntries = new ArrayCollection();
         $this->pkmnSpawns = new ArrayCollection();
+
+        $defaultStats = [
+            'hp' => 0,
+            'attack' => 0,
+            'defense' => 0,
+            'special_attack' => 0,
+            'special_defense' => 0,
+            'speed' => 0
+        ];
+
+        $this->stats = $defaultStats;
+        $this->evYield = $defaultStats;
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNationalDexID(): int
+    {
+        return $this->nationalDexID;
+    }
+
+    public function setNationalDexID(int $nationalDexID): void
+    {
+        $this->nationalDexID = $nationalDexID;
     }
 
     public function getRegionalDexID(): ?int
@@ -164,6 +249,16 @@ class Pkmn
         $this->regionalDexID = $regionalDexID;
 
         return $this;
+    }
+
+    public function getFormID(): int
+    {
+        return $this->formID;
+    }
+
+    public function setFormID(int $formID): void
+    {
+        $this->formID = $formID;
     }
 
     public function getName(): ?string
@@ -286,21 +381,24 @@ class Pkmn
         return $this;
     }
 
-    public function getEvYieldStat(): ?int
+    public function getStats(): array
     {
-        return $this->evYieldStat;
+        return $this->stats;
     }
 
-    public function setEvYieldStat(int $evYieldStat): static
+    public function setStats(array $stats): void
     {
-        $this->evYieldStat = $evYieldStat;
-
-        return $this;
+        $this->stats = $stats;
     }
 
-    public function getEvYieldQuantity(): ?int
+    public function getEvYield(): array
     {
-        return $this->evYieldQuantity;
+        return $this->evYield;
+    }
+
+    public function setEvYield(array $evYield): void
+    {
+        $this->evYield = $evYield;
     }
 
     public function setEvYieldQuantity(int $evYieldQuantity): static
@@ -602,5 +700,15 @@ class Pkmn
     public function setArtworkName(?string $artworkName): void
     {
         $this->artworkName = $artworkName;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }
