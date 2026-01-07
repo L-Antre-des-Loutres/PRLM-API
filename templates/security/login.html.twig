@@ -1,38 +1,146 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h1 class="login-title">Connexion</h1>
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
-            </div>
-        {% endif %}
+            {% if error %}
+                <div class="login-alert login-alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Username</label>
-        <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="username" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+            {% if app.user %}
+                <div class="login-info">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}" class="login-link">Se déconnecter</a>
+                </div>
+            {% endif %}
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
+            <form method="post" class="login-form">
+                <div class="login-group">
+                    <label for="username" class="login-label">Identifiant</label>
+                    <input type="text" value="{{ last_username }}" name="_username" id="username" class="login-input" autocomplete="username" required autofocus>
+                </div>
 
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
-            </div>
-        #}
+                <div class="login-group">
+                    <label for="password" class="login-label">Mot de passe</label>
+                    <input type="password" name="_password" id="password" class="login-input" autocomplete="current-password" required>
+                </div>
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+                <button class="login-btn" type="submit">
+                    Se connecter
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .login-wrapper {
+            min-height: calc(80vh);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Carte de connexion */
+        .login-card {
+            background: var(--usual_white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-title {
+            text-align: center;
+            color: var(--rlm_gold_darker);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .login-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .login-label {
+            font-weight: 600;
+            color: var(--usual_gray);
+            font-size: 0.9rem;
+        }
+
+        .login-input {
+            padding: 0.8rem;
+            border: 1px solid var(--usual_cream);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--rlm_gold_dark);
+            box-shadow: 0 0 0 3px var(--rlm_gold_lightest);
+        }
+
+        .login-btn {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background-color: var(--rlm_gold_darker);
+            color: var(--usual_white);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .login-alert-danger {
+            background-color: var(--usual_cream);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-light_color);
+        }
+
+        .login-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .login-link {
+            color: var(--rlm_gold_darker);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 {% endblock %}

@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-    {% block stylesheets %}
-    {% endblock %}
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+        {% endblock %}
 
-    {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
-</head>
-<body>
-<header class="header-main">
-    <nav class="header-container">
-        <div class="header-logo-wrapper">
-            <img src="/images/logo/prlm-api-full-white.png" alt="Logo PRLM" class="header-logo-img">
-        </div>
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        <header class="header-main">
+            <nav class="header-container">
+                <div class="header-logo-wrapper">
+                    <img src="/images/logo/prlm-api-full-white.png" alt="Logo PRLM" class="header-logo-img">
+                </div>
 
-        <button class="header-mobile-toggle" id="prlmToggle" aria-label="Toggle menu">
-            <span class="header-burger-icon"></span>
-        </button>
+                <button class="header-mobile-toggle" id="prlmToggle" aria-label="Toggle menu">
+                    <span class="header-burger-icon"></span>
+                </button>
 
-        <ul class="header-menu" id="prlmMenu">
-            <li class="header-item">
-                <a href="#accueil" class="header-link">Accueil</a>
-            </li>
-
-            <li class="header-item header-has-dropdown">
-                <a href="#services" class="header-link">Services</a>
-                <ul class="header-dropdown">
-                    <li class="header-dropdown-item">
-                        <a href="#service1" class="header-dropdown-link">Service 1</a>
+                <ul class="header-menu" id="prlmMenu">
+                    <li class="header-item">
+                        <a href="#accueil" class="header-link">Accueil</a>
                     </li>
-                    <li class="header-dropdown-item">
-                        <a href="#service2" class="header-dropdown-link">Service 2</a>
+
+                    <li class="header-item header-has-dropdown">
+                        <a href="#services" class="header-link">Services</a>
+                        <ul class="header-dropdown">
+                            <li class="header-dropdown-item">
+                                <a href="#service1" class="header-dropdown-link">Service 1</a>
+                            </li>
+                            <li class="header-dropdown-item">
+                                <a href="#service2" class="header-dropdown-link">Service 2</a>
+                            </li>
+                            <li class="header-dropdown-item">
+                                <a href="#service3" class="header-dropdown-link">Service 3</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="header-dropdown-item">
-                        <a href="#service3" class="header-dropdown-link">Service 3</a>
+
+                    <li class="header-item header-has-dropdown">
+                        <a href="#produits" class="header-link">Services</a>
+                        <ul class="header-dropdown">
+                            <li class="header-dropdown-item">
+                                <a href="#produit1" class="header-dropdown-link">Service A</a>
+                            </li>
+                            <li class="header-dropdown-item">
+                                <a href="#produit2" class="header-dropdown-link">Service B</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="header-item">
+                        <a href="#contact" class="header-link">Service Z</a>
+                    </li>
+
+                    <li class="header-item">
+                        <a href="/login" class="header-login-btn">Connexion</a>
                     </li>
                 </ul>
-            </li>
+            </nav>
+        </header>
 
-            <li class="header-item header-has-dropdown">
-                <a href="#produits" class="header-link">Produits</a>
-                <ul class="header-dropdown">
-                    <li class="header-dropdown-item">
-                        <a href="#produit1" class="header-dropdown-link">Produit A</a>
-                    </li>
-                    <li class="header-dropdown-item">
-                        <a href="#produit2" class="header-dropdown-link">Produit B</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="header-item">
-                <a href="#contact" class="header-link">Contact</a>
-            </li>
-
-            <li class="header-item">
-                <a href="/login" class="header-login-btn">Connexion</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-<main>
-    {% block body %}{% endblock %}
-</main>
-</body>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+    </body>
 </html>

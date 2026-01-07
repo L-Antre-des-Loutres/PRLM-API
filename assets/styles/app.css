@@ -8,6 +8,10 @@
     --usual_gray: #333;
     --light_gray: #f0f0f0;
     --usual_white: white;
+    --usual_cream: #fde8e8;
+    --danger-color: #c81e1e;
+    --danger-light_color: #f8b4b4;
+
     --page_background: var(--usual_white);
     --global_text_color: var(--usual_gray);
     --header_background_from: var(--rlm_gold_darker);
