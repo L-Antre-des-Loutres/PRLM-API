@@ -1,27 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+    {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        <header>
-            <img src="https://private-user-images.githubusercontent.com/109530954/532004766-29d001d9-d99a-4fa0-b719-d2c1f4fdc501.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc2OTc0MjEsIm5iZiI6MTc2NzY5NzEyMSwicGF0aCI6Ii8xMDk1MzA5NTQvNTMyMDA0NzY2LTI5ZDAwMWQ5LWQ5OWEtNGZhMC1iNzE5LWQyYzFmNGZkYzUwMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwNlQxMDU4NDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iM2IxZWY2MTRlM2M2MGY3MDU5MTBlYjk4ZDU1NDE0MjQwM2VhYWMyNWFlODA1YzdjYzJiOTViZjZhNmI3NzdhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9._AN3MX8B0raIuhVhQ1Hwmr7VNnCZHUvE7IjP3em1YuI">
-        </header>
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+<header class="header-main">
+    <nav class="header-container">
+        <div class="header-logo-wrapper">
+            <img src="/images/logo/prlm-api-full-white.png" alt="Logo PRLM" class="header-logo-img">
+        </div>
 
-        <main>
-            {% block body %}{% endblock %}
-        </main>
-    </body>
+        <button class="header-mobile-toggle" id="prlmToggle" aria-label="Toggle menu">
+            <span class="header-burger-icon"></span>
+        </button>
 
-    <style>
+        <ul class="header-menu" id="prlmMenu">
+            <li class="header-item">
+                <a href="#accueil" class="header-link">Accueil</a>
+            </li>
 
-    </style>
+            <li class="header-item header-has-dropdown">
+                <a href="#services" class="header-link">Services</a>
+                <ul class="header-dropdown">
+                    <li class="header-dropdown-item">
+                        <a href="#service1" class="header-dropdown-link">Service 1</a>
+                    </li>
+                    <li class="header-dropdown-item">
+                        <a href="#service2" class="header-dropdown-link">Service 2</a>
+                    </li>
+                    <li class="header-dropdown-item">
+                        <a href="#service3" class="header-dropdown-link">Service 3</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="header-item header-has-dropdown">
+                <a href="#produits" class="header-link">Produits</a>
+                <ul class="header-dropdown">
+                    <li class="header-dropdown-item">
+                        <a href="#produit1" class="header-dropdown-link">Produit A</a>
+                    </li>
+                    <li class="header-dropdown-item">
+                        <a href="#produit2" class="header-dropdown-link">Produit B</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="header-item">
+                <a href="#contact" class="header-link">Contact</a>
+            </li>
+
+            <li class="header-item">
+                <a href="/login" class="header-login-btn">Connexion</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    {% block body %}{% endblock %}
+</main>
+</body>
 </html>
