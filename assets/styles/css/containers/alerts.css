@@ -1,0 +1,21 @@
+.panel-alert-default {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    background-color: var(--alert_info_background_color);
+    color: var(--alert_info_text_color);
+    border: 1px solid var(--alert_info_outline_color);
+}
+
+.panel-alert-success {
+    background-color: var(--alert_success_background_color);
+    color: var(--alert_success_text_color);
+    border: 1px solid var(--alert_success_outline_color);
+}
+
+.panel-alert-danger {
+    background-color: var(--alert_danger_background_color);
+    color: var(--alert_danger_text_color);
+    border: 1px solid var(--alert_danger_outline_color);
+}

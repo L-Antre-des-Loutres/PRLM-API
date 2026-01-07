@@ -1,0 +1,23 @@
+.panel-default-card {
+    background: var(--usual_white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.panel-default-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--usual_cream);
+    padding-bottom: 1rem;
+}
+
+.panel-centered-content-container {
+    min-height: calc(80vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

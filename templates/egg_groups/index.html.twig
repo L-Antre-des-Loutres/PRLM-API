@@ -1,0 +1,232 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel-wrapper">
+        <div class="panel-container">
+
+            {# --- PARTIE 1 : LA CARTE FORMULAIRE --- #}
+            <div class="panel-default-card" style="margin-bottom: 2rem;">
+                <div class="panel-default-card-header">
+                    <h2 class="colorful-title">
+                        {% if is_edit_mode %}
+                            Modifier : <span class="text-gold">{{ form.vars.value.name }}</span>
+                        {% else %}
+                            Nouveau Groupe d'Oeufs
+                        {% endif %}
+                    </h2>
+
+                    {% if is_edit_mode %}
+                        <a href="{{ path('app_panel_egg_groups_index') }}" class="panel-btn panel-btn-outline">
+                            Annuler
+                        </a>
+                    {% endif %}
+                </div>
+
+                {# Messages flash #}
+                {% for message in app.flashes('success') %}
+                    <div class="panel-alert-default panel-alert-success">{{ message }}</div>
+                {% endfor %}
+
+                {# Le formulaire avec une classe CSS spécifique pour le ciblage #}
+                {{ form_start(form, {'attr': {'class': 'panel-form'}}) }}
+
+                {# On personnalise le rendu des rangées pour injecter nos classes d'input #}
+                <div class="form-group">
+                    {{ form_label(form.name, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'panel-input'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.websiteDescription, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.websiteDescription, {'attr': {'class': 'panel-input'}}) }}
+                    {{ form_errors(form.websiteDescription) }}
+                </div>
+
+                <div class="form-actions">
+                    {{ form_widget(form.save, {
+                        'label': is_edit_mode ? 'Update' : 'Create egg group',
+                        'attr': {'class': 'default-button orange-button'}
+                    }) }}
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+
+            {# --- PARTIE 2 : LA CARTE TABLEAU --- #}
+            <div class="panel-default-card">
+                <div class="panel-default-card-header">
+                    <h2 class="colorful-title">
+                        Liste des groupes d'oeufs
+                    </h2>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="panel-table">
+                        <thead>
+                        <tr>
+                            <th width="50">ID</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for group in egg_groups %}
+                            <tr>
+                                <td class="text-muted">#{{ group.id }}</td>
+                                <td class="fw-bold">{{ group.name }}</td>
+                                <td>{{ group.websiteDescription }}</td>
+                                <td class="text-end actions-cell">
+
+                                    {# BOUTON MODIFIER #}
+                                    <a href="{{ path('app_panel_egg_groups_index', {'id': group.id}) }}" class="action-link edit-link">
+                                        Modifier
+                                    </a>
+
+                                    {# BOUTON SUPPRIMER #}
+                                    <form method="post" action="{{ path('app_panel_egg_groups_delete', {'id': group.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ group.id) }}">
+                                        <button class="action-link delete-link">Supprimer</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center py-4">Aucun groupe trouvé</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        /* --- LAYOUT GLOBAL --- */
+        .panel-wrapper {
+            min-height: 80vh;
+            padding: 2rem 1rem;
+            background-color: transparent; /* Ou une couleur de fond légère si besoin */
+            display: flex;
+            justify-content: center;
+        }
+
+        .panel-container {
+            width: 100%;
+            max-width: 900px; /* Plus large que le login pour le tableau */
+        }
+
+        /* --- CARTE (Même style que login-card) --- */
+
+
+
+
+        /* --- TYPOGRAPHIE --- */
+
+
+
+
+        /* --- FORMULAIRE (Même style que login-form) --- */
+        .panel-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .panel-label {
+            font-weight: 600;
+            color: var(--usual_gray);
+            font-size: 0.9rem;
+        }
+
+        .panel-input {
+            padding: 0.8rem;
+            border: 1px solid var(--usual_cream);
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box; /* Important pour ne pas dépasser */
+            transition: border-color 0.3s ease;
+        }
+
+        /* --- TABLEAU --- */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .panel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .panel-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--usual_gray);
+            border-bottom: 2px solid var(--usual_cream);
+            font-weight: 600;
+        }
+
+        .panel-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        .panel-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .panel-table tr:hover td {
+            background-color: rgba(0,0,0,0.01);
+        }
+
+        .text-end {
+            text-align: right !important;
+        }
+
+        /* --- ACTIONS (LIENS EDIT/DELETE) --- */
+        .actions-cell {
+            white-space: nowrap;
+        }
+
+        .action-link {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.8rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .edit-link {
+            color: var(--rlm_gold_darker);
+        }
+        .edit-link:hover {
+            text-decoration: underline;
+        }
+
+        .delete-link {
+            color: var(--danger-color, #dc3545); /* Fallback si var non définie */
+        }
+        .delete-link:hover {
+            text-decoration: underline;
+            color: darkred;
+        }
+
+    </style>
+{% endblock %}
