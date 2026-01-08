@@ -45,38 +45,38 @@ class PkmnAndMovesetType extends AbstractType
             ->add('updatedAt')
             ->add('firstType', EntityType::class, [
                 'class' => PkmnTypes::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('secondType', EntityType::class, [
                 'class' => PkmnTypes::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('firstAbility', EntityType::class, [
                 'class' => Abilities::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('secondAbility', EntityType::class, [
                 'class' => Abilities::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('hiddenAbility', EntityType::class, [
                 'class' => Abilities::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('levelingRate', EntityType::class, [
                 'class' => LevelingRate::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('firstEggGroup', EntityType::class, [
                 'class' => EggGroups::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('secondEggGroup', EntityType::class, [
                 'class' => EggGroups::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
 
-            // --- LA COLLECTION DE MOVESETS ---
+            // Moveset
             ->add('movesets', CollectionType::class, [
                 'entry_type' => MovesetEmbeddedType::class,
                 'entry_options' => ['label' => false],
