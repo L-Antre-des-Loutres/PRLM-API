@@ -4,7 +4,7 @@
     <div class="panel-dual-card-wrapper">
         <div class="panel-dual-card-container">
 
-            {# --- SECTION TABLEAU (GAUCHE) --- #}
+            <!-- Left pat: List -->
             <div class="panel-default-card table-section">
                 <div class="panel-default-card-header">
                     <h2 class="colorful-title">
@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            {# --- SECTION FORMULAIRE (DROITE) --- #}
+            <!-- Right pat: Form -->
             <div class="panel-default-card">
                 <div class="panel-default-card-header">
                     <h2 class="colorful-title">
@@ -84,7 +84,7 @@
                 <hr style="border-color: var(--usual_cream); margin: 1rem 0;">
                 <h4 style="font-size: 0.9rem; color: var(--rlm_gold_darker); margin-bottom: 1rem;">Matchups (Hold CTRL to select multiple)</h4>
 
-                {# Offense #}
+                <!-- Offense -->
                 <div class="panel-form-group">
                     {{ form_label(form.superEffectiveOn, 'Super Effective On', {'label_attr': {'class': 'panel-label'}}) }}
                     {{ form_widget(form.superEffectiveOn) }}
@@ -100,7 +100,7 @@
                     {{ form_widget(form.noEffectOn) }}
                 </div>
 
-                {# Defense #}
+                <!-- Defense -->
                 <div class="panel-form-group">
                     {{ form_label(form.weakTo, 'Weak To', {'label_attr': {'class': 'panel-label'}}) }}
                     {{ form_widget(form.weakTo) }}

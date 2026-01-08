@@ -17,7 +17,7 @@ class MovesRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return Moves[] Returns an array of Moves objects
+    //     * @return MovesController[] Returns an array of MovesController objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class MovesRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Moves
+    //    public function findOneBySomeField($value): ?MovesController
     //    {
     //        return $this->createQueryBuilder('m')
     //            ->andWhere('m.exampleField = :val')
