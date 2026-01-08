@@ -649,9 +649,13 @@ class Pkmn
         return $this->spriteFile;
     }
 
-    public function setSpriteFile(?File $spriteFile): void
+    public function setSpriteFile(?File $spriteFile = null): void
     {
         $this->spriteFile = $spriteFile;
+
+        if (null !== $spriteFile) {
+            $this->updatedAt = new \DateTime();
+        }
     }
 
     public function getSpriteName(): ?string

@@ -42,11 +42,11 @@ class PkmnAndMovesetType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'Delete current image',
-                'download_uri' => false, // On ne veut pas de lien de téléchargement brut
-                'image_uri' => true,     // Affiche l'image actuelle si elle existe
-                'asset_helper' => true,  // Utilise le système d'asset de Symfony
+                'download_uri' => false,
+                'image_uri' => true,
+                'asset_helper' => true,
                 'label' => 'Sprite File',
-                'attr' => ['class' => 'file-input'] // Pour le CSS
+                'attr' => ['class' => 'file-input']
             ])
 
             ->add('shinySpriteFile', VichImageType::class, [
