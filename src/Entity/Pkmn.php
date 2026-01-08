@@ -140,7 +140,7 @@ class Pkmn
     /**
      * @var Collection<int, Movesets>
      */
-    #[ORM\OneToMany(targetEntity: Movesets::class, mappedBy: 'pkmn', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Movesets::class, mappedBy: 'pkmn', cascade: ['persist', 'remove'])]
     #[Groups(['pkmn:read'])]
     private Collection $movesets;
 
