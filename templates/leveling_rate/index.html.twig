@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel-dual-card-wrapper">
+        <div class="panel-dual-card-container">
+
+            {# --- SECTION TABLEAU (GAUCHE) --- #}
+            <div class="panel-default-card table-section">
+                <div class="panel-default-card-header">
+                    <h2 class="colorful-title">
+                        List of Leveling Rates
+                    </h2>
+                </div>
+
+                <div class="panel-table-responsive">
+                    <table class="panel-table">
+                        <thead>
+                        <tr>
+                            <th width="50">ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rate in leveling_rates %}
+                            <tr>
+                                <td class="text-muted">#{{ rate.id }}</td>
+                                <td class="fw-bold">{{ rate.name }}</td>
+                                <td>{{ rate.websiteDescription|u.truncate(40, '...') }}</td>
+                                <td class="text-end panel-table-actions-cell">
+
+                                    <a href="{{ path('app_panel_leveling_rate_index', {'id': rate.id}) }}" class="default-button info-button">
+                                        Edit
+                                    </a>
+
+                                    <form method="post" action="{{ path('app_panel_leveling_rate_delete', {'id': rate.id}) }}" style="display: inline-block" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rate.id) }}">
+                                        <button class="default-button danger-button">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" style="text-align: center">No Leveling Rates found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# --- SECTION FORMULAIRE (DROITE) --- #}
+            <div class="panel-default-card">
+                <div class="panel-default-card-header">
+                    <h2 class="colorful-title">
+                        {% if is_edit_mode %}
+                            Edit: <span class="text-gold">{{ form.vars.value.name }}</span>
+                        {% else %}
+                            New Leveling Rate
+                        {% endif %}
+                    </h2>
+                </div>
+
+                {% for message in app.flashes('success') %}
+                    <div class="panel-alert-default panel-alert-success">{{ message }}</div>
+                {% endfor %}
+
+                {{ form_start(form, {'attr': {'class': 'panel-form'}}) }}
+
+                <div class="panel-form-group">
+                    {{ form_label(form.name, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <div class="panel-form-group">
+                    {{ form_label(form.websiteDescription, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.websiteDescription, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_errors(form.websiteDescription) }}
+                </div>
+
+                <div class="form-actions">
+                    {{ form_widget(form.save, {
+                        'label': is_edit_mode ? 'Update' : 'Create',
+                        'attr': {'class': 'default-button orange-button'}
+                    }) }}
+                    {% if is_edit_mode %}
+                        <a href="{{ path('app_panel_leveling_rate_index') }}" class="default-button info-button">
+                            Cancel
+                        </a>
+                    {% endif %}
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
