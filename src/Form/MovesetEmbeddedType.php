@@ -18,14 +18,19 @@ class MovesetEmbeddedType extends AbstractType
         $builder
             ->add('move', EntityType::class, [
                 'class' => Moves::class,
+                'label' => false,
                 'choice_label' => 'name',
-                'label' => 'Attaque',
                 'attr' => ['class' => 'text-input']
             ])
             ->add('learnAtLevel', IntegerType::class, [
-                'label' => 'Niveau',
                 'required' => false,
-                'attr' => ['class' => 'text-input']
+                'label' => false,
+                'attr' => [
+                    'class' => 'number-input',
+                    'placeholder' => 'Level',
+                    'min' => 1,
+                    'max' => 100
+                ]
             ])
             ->add('evolutionLearned', CheckboxType::class, [
                 'label' => 'Evo.',

@@ -73,13 +73,14 @@
     display: flex;
     gap: 10px;
     align-items: flex-end;
+    margin-top: 1rem;
 }
 
 .moveset-checks {
     display: flex;
     gap: 15px;
     align-items: center;
-    padding-bottom: 10px;
+    align-self: center;
 }
 
 .ev-grid {

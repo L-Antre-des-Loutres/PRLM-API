@@ -160,11 +160,11 @@
                     </button>
                 </div>
 
-                <div id="movesets-wrapper"
-                     data-prototype="{{ form_widget(form.movesets.vars.prototype)|e('html_attr') }}">
+                <div id="movesets-wrapper" data-prototype="{{ form_widget(form.movesets.vars.prototype)|e('html_attr') }}">
+                    <label class="panel-label"></label>
 
                     {% for movesetField in form.movesets %}
-                        <div class="moveset-item panel-card-light border rounded mb-2 p-3">
+                        <div class="moveset-item panel-card-light">
                             <div class="moveset-row">
                                 <div style="flex: 2;">{{ form_row(movesetField.move) }}</div>
                                 <div style="flex: 1;">{{ form_row(movesetField.learnAtLevel) }}</div>
@@ -173,20 +173,21 @@
                                     <div>{{ form_widget(movesetField.ctLearned) }} <label>CT</label></div>
                                     <div>{{ form_widget(movesetField.eggMoveLearned) }} <label>Egg</label></div>
                                 </div>
-                                <button type="button" class="default-button danger-button remove-moveset">Delete</button>
+                                <button type="button" class="default-button danger-button remove-moveset" style="align-self: center">Delete</button>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-
-                <div class="form-actions mt-5">
-                    {{ form_widget(form.save) }}
-                </div>
             </div>
-
 
         </div>
     </div>
+
+    <div class="form-actions-fixed">
+        <p style="align-self: center; margin-right: 1rem;">{% if is_edit_mode %}Editing Pokemon...{% else %}Creating new Pokemon...{% endif %}</p>
+        {{ form_widget(form.save, {'attr': {'class': 'default-button orange-button'}}) }}
+    </div>
+
     {{ form_end(form) }}
 
     <script>

@@ -37,6 +37,7 @@
     --header_text_color: var(--usual_white);
     --header_burger_icon_color: var(--usual_white);
     --button_hover_color: var(--darken_color_alpha);
+    --container_box_shadow_rgba: var(--darken_color_alpha);
     --alert_info_text_color: var(--info_color);
     --alert_info_background_color: var(--info_background_color);
     --alert_info_outline_color: var(--info_light_color);
@@ -49,5 +50,6 @@
     --default_hyperlink_color: var(--default_link_color);
     --default_hyperlink_color_hover: var(--default_link_hover_color);
     --table_line_hover_color: var(--gray_table_line_hover);
-    --text_muted_color: var(--muted_color)
+    --text_muted_color: var(--muted_color);
+    --save_form_fixed_button_border_color: var(--rlm_gold_darker);
 }

@@ -16,3 +16,16 @@
     gap: 0.5rem;
 }
 
+.form-actions-fixed {
+    position: fixed;
+    bottom: 2.5rem;
+    background-color: var(--usual_white);
+    border: 2px solid var(--save_form_fixed_button_border_color);
+    border-radius: 500px;
+    padding: 1rem 4rem;
+    box-shadow: 0 -4px 20px var(--container_box_shadow_rgba);
+    z-index: 1000;
+    display: flex;
+    align-self: center;
+}
+
