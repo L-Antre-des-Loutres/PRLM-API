@@ -1,227 +1,199 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="panel-container">
+    {{ form_start(form, {'attr': {'class': 'panel-form', 'novalidate': 'novalidate'}}) }}
+    <div class="panel-dual-card-wrapper">
+        <div class="panel-dual-card-container" style="grid-template-columns: 1fr 900px">
 
-        <div class="panel-default-card">
-            <div class="panel-default-card-header">
-                <h2 class="colorful-title">
-                    {% if is_edit_mode %}
-                        Edit Pokémon: <span class="text-gold">{{ pkmn.name }}</span>
-                    {% else %}
-                        Add New Pokémon
-                    {% endif %}
-                </h2>
-                <a href="{{ path('app_panel_pkmn_index') }}" class="default-button info-button" style="float: right;">Back to List</a>
-            </div>
+            <div class="panel-default-card">
+                <div class="panel-default-card-header">
+                    <h2 class="colorful-title">
+                        {% if is_edit_mode %}
+                            Edit Pokémon: <span class="text-gold">{{ pkmn.name }}</span>
+                        {% else %}
+                            Add New Pokémon
+                        {% endif %}
+                    </h2>
+                    <a href="{{ path('app_panel_pkmn_index') }}" class="default-button info-button" style="float: right;">Back to List</a>
+                </div>
 
-            {{ form_start(form, {'attr': {'class': 'panel-form'}}) }}
+                <h3 class="panel-section-title">General Info</h3>
+                <div class="row-grid-3">
+                    <div class="panel-form-group">
+                        {{ form_label(form.name, null, {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.nationalDexID, 'Nat. Dex', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.nationalDexID, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.regionalDexID, 'Reg. Dex', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.regionalDexID, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.spriteFile, null, {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.spriteFile) }}
+                        {{ form_errors(form.spriteFile) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.shinySpriteFile, null, {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.shinySpriteFile) }}
+                        {{ form_errors(form.shinySpriteFile) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.artworkFile, null, {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.artworkFile) }}
+                        {{ form_errors(form.artworkFile) }}
+                    </div>
+                </div>
 
-            <h3 class="panel-section-title">General Info</h3>
-            <div class="row-grid-3">
-                <div class="panel-form-group">
-                    {{ form_label(form.name, null, {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.name, {'attr': {'class': 'text-input'}}) }}
+                <h3 class="panel-section-title">Types & Abilities</h3>
+                <div class="row-grid-2">
+                    <div class="panel-form-group">
+                        {{ form_label(form.firstType, 'Type 1', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.firstType, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.secondType, 'Type 2', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.secondType, {'attr': {'class': 'text-input'}}) }}
+                    </div>
                 </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.nationalDexID, 'Nat. Dex', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.nationalDexID, {'attr': {'class': 'text-input'}}) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.regionalDexID, 'Reg. Dex', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.regionalDexID, {'attr': {'class': 'text-input'}}) }}
-                </div>
-            </div>
 
-            <h3 class="panel-section-title mt-4">Types & Abilities</h3>
-            <div class="row-grid-2">
-                <div class="panel-form-group">
-                    {{ form_label(form.firstType, 'Type 1', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.firstType, {'attr': {'class': 'text-input'}}) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.secondType, 'Type 2', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.secondType, {'attr': {'class': 'text-input'}}) }}
-                </div>
-            </div>
-
-            <div class="row-grid-3 mt-2">
-                <div class="panel-form-group">
-                    {{ form_label(form.firstAbility, 'Ability 1', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.firstAbility, {'attr': {'class': 'text-input'}}) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.secondAbility, 'Ability 2', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.secondAbility, {'attr': {'class': 'text-input'}}) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.hiddenAbility, 'Hidden Ability', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.hiddenAbility, {'attr': {'class': 'text-input'}}) }}
-                </div>
-            </div>
-
-            <h3 class="panel-section-title mt-4">Base Statistics</h3>
-
-            {# On affiche les stats en grille de 6 colonnes (ou 3x2 selon préférence) #}
-            <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;">
-                <div class="panel-form-group">
-                    {{ form_label(form.stats.hp, 'HP', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.stats.hp) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.stats.attack, 'Atk', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.stats.attack) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.stats.defense, 'Def', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.stats.defense) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.stats.special_attack, 'SpA', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.stats.special_attack) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.stats.special_defense, 'SpD', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.stats.special_defense) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.stats.speed, 'Spe', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.stats.speed) }}
-                </div>
-            </div>
-
-            {{ form_errors(form.stats) }}
-
-            <div class="row-grid-3 mt-3">
-                <div class="panel-form-group">
-                    {{ form_label(form.height, null, {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.height, {'attr': {'class': 'text-input'}}) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.weight, null, {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.weight, {'attr': {'class': 'text-input'}}) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.baseExpYield, 'Exp Yield', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.baseExpYield, {'attr': {'class': 'text-input'}}) }}
-                </div>
-            </div>
-
-            <h3 class="panel-section-title mt-4">Assets & Descriptions</h3>
-            <div class="row-grid-3">
-                <div class="panel-form-group">
-                    {{ form_label(form.spriteFile, null, {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.spriteFile) }}
-                    {{ form_errors(form.spriteFile) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.shinySpriteFile, null, {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.shinySpriteFile) }}
-                    {{ form_errors(form.shinySpriteFile) }}
-                </div>
-                <div class="panel-form-group">
-                    {{ form_label(form.artworkFile, null, {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.artworkFile) }}
-                    {{ form_errors(form.artworkFile) }}
-                </div>
-            </div>
-            <div class="panel-form-group mt-2">
-                {{ form_label(form.websiteDescription, 'Description', {'label_attr': {'class': 'panel-label'}}) }}
-                {{ form_widget(form.websiteDescription, {'attr': {'class': 'text-input', 'rows': 3}}) }}
-            </div>
-
-            <div class="mt-3 p-3 bg-light rounded border">
-                <small class="text-muted">Technical Details: Hatch Time, Cry File, EV Yield, Form ID, Updated At, Egg Groups...</small>
                 <div class="row-grid-3 mt-2">
-                    {{ form_row(form.hatchTimeInCycle) }}
-                    {{ form_row(form.cryFile) }}
-                    <div class="mt-2 mb-2">
-                        <label class="panel-label">EV Yields:</label>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <div>HP: {{ form_widget(form.evYield.hp, {'attr': {'style': 'width: 60px'}}) }}</div>
-                            <div>Atk: {{ form_widget(form.evYield.attack, {'attr': {'style': 'width: 60px'}}) }}</div>
-                            <div>Def: {{ form_widget(form.evYield.defense, {'attr': {'style': 'width: 60px'}}) }}</div>
-                            <div>SpA: {{ form_widget(form.evYield.special_attack, {'attr': {'style': 'width: 60px'}}) }}</div>
-                            <div>SpD: {{ form_widget(form.evYield.special_defense, {'attr': {'style': 'width: 60px'}}) }}</div>
-                            <div>Spe: {{ form_widget(form.evYield.speed, {'attr': {'style': 'width: 60px'}}) }}</div>
-                        </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.firstAbility, 'Ability 1', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.firstAbility, {'attr': {'class': 'text-input'}}) }}
                     </div>
-                    {{ form_row(form.formID) }}
-                    {{ form_row(form.updatedAt) }}
-                    {{ form_row(form.baseFriendship) }}
-                    {{ form_row(form.firstEggGroup) }}
-                    {{ form_row(form.secondEggGroup) }}
-                    {{ form_row(form.categoryName) }}
-                    {{ form_row(form.levelingRate) }}
+                    <div class="panel-form-group">
+                        {{ form_label(form.secondAbility, 'Ability 2', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.secondAbility, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.hiddenAbility, 'Hidden Ability', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.hiddenAbility, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                </div>
+
+                <h3 class="panel-section-title">Base Statistics</h3>
+                <div class="row-grid-6">
+                    <div class="panel-form-group">
+                        {{ form_label(form.stats.hp, 'HP', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.stats.hp) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.stats.attack, 'Atk', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.stats.attack) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.stats.defense, 'Def', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.stats.defense) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.stats.special_attack, 'SpA', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.stats.special_attack) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.stats.special_defense, 'SpD', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.stats.special_defense) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.stats.speed, 'Spe', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.stats.speed) }}
+                    </div>
+                </div>
+                {{ form_errors(form.stats) }}
+
+                <div class="row-grid-3 mt-3">
+                    <div class="panel-form-group">
+                        {{ form_label(form.height, null, {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.height, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.weight, null, {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.weight, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.baseExpYield, 'Exp Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.baseExpYield, {'attr': {'class': 'text-input'}}) }}
+                    </div>
+                </div>
+
+                <h3 class="panel-section-title">Assets & Descriptions</h3>
+                <div class="panel-form-group mt-2">
+                    {{ form_label(form.websiteDescription, 'Description', {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.websiteDescription, {'attr': {'class': 'text-input', 'rows': 3}}) }}
+                </div>
+
+                <div>
+                    <small class="text-muted">Technical Details: Hatch Time, Cry File, EV Yield, Form ID, Updated At, Egg Groups...</small>
+                    <div class="row-grid-3 mt-2">
+                        {{ form_row(form.hatchTimeInCycle) }}
+                        {{ form_row(form.cryFile) }}
+                        <div class="mt-2 mb-2">
+                            <label class="panel-label">EV Yields:</label>
+                            <div class="ev-grid">
+                                <div>HP: {{ form_widget(form.evYield.hp, {'attr': {'style': 'width: 50px'}}) }}</div>
+                                <div>Atk: {{ form_widget(form.evYield.attack, {'attr': {'style': 'width: 50px'}}) }}</div>
+                                <div>Def: {{ form_widget(form.evYield.defense, {'attr': {'style': 'width: 50px'}}) }}</div>
+                                <div>SpA: {{ form_widget(form.evYield.special_attack, {'attr': {'style': 'width: 50px'}}) }}</div>
+                                <div>SpD: {{ form_widget(form.evYield.special_defense, {'attr': {'style': 'width: 50px'}}) }}</div>
+                                <div>Spe: {{ form_widget(form.evYield.speed, {'attr': {'style': 'width: 50px'}}) }}</div>
+                            </div>
+                        </div>
+                        {{ form_row(form.formID) }}
+                        {{ form_row(form.updatedAt) }}
+                        {{ form_row(form.baseFriendship) }}
+                        {{ form_row(form.firstEggGroup) }}
+                        {{ form_row(form.secondEggGroup) }}
+                        {{ form_row(form.categoryName) }}
+                        {{ form_row(form.levelingRate) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-default-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+                    <h3 class="panel-section-title" style="margin: 0; padding: 0">Moveset Configuration</h3>
+                    <button type="button" class="default-button info-button" id="add-moveset-btn">
+                        + Add Move
+                    </button>
+                </div>
+
+                <div id="movesets-wrapper"
+                     data-prototype="{{ form_widget(form.movesets.vars.prototype)|e('html_attr') }}">
+
+                    {% for movesetField in form.movesets %}
+                        <div class="moveset-item panel-card-light border rounded mb-2 p-3">
+                            <div class="moveset-row">
+                                <div style="flex: 2;">{{ form_row(movesetField.move) }}</div>
+                                <div style="flex: 1;">{{ form_row(movesetField.learnAtLevel) }}</div>
+                                <div class="moveset-checks">
+                                    <div>{{ form_widget(movesetField.evolutionLearned) }} <label>Evo</label></div>
+                                    <div>{{ form_widget(movesetField.ctLearned) }} <label>CT</label></div>
+                                    <div>{{ form_widget(movesetField.eggMoveLearned) }} <label>Egg</label></div>
+                                </div>
+                                <button type="button" class="default-button danger-button remove-moveset">Delete</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-actions mt-5">
+                    {{ form_widget(form.save) }}
                 </div>
             </div>
 
 
-            <!-- Moveset section -->
-            <hr class="my-5" style="border-color: var(--rlm_gold_dark);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3 class="panel-section-title m-0">Moveset Configuration</h3>
-                <button type="button" class="default-button info-button" id="add-moveset-btn">
-                    + Add Move
-                </button>
-            </div>
-
-            <div id="movesets-wrapper"
-                 data-prototype="{{ form_widget(form.movesets.vars.prototype)|e('html_attr') }}">
-
-                {% for movesetField in form.movesets %}
-                    <div class="moveset-item panel-card-light mb-2 p-3 border rounded" style="background: #fdfdfd;">
-                        <div style="display: flex; gap: 10px; align-items: flex-end;">
-                            <div style="flex: 2;">{{ form_row(movesetField.move) }}</div>
-                            <div style="flex: 1;">{{ form_row(movesetField.learnAtLevel) }}</div>
-                            <div style="display:flex; gap:15px; align-items:center; padding-bottom:10px;">
-                                <div>{{ form_widget(movesetField.evolutionLearned) }} <label>Evo</label></div>
-                                <div>{{ form_widget(movesetField.ctLearned) }} <label>CT</label></div>
-                                <div>{{ form_widget(movesetField.eggMoveLearned) }} <label>Egg</label></div>
-                            </div>
-                            <button type="button" class="default-button danger-button remove-moveset" style="padding: 5px 10px;">X</button>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <div class="form-actions mt-5">
-                {{ form_widget(form.save) }}
-            </div>
-
-            {{ form_end(form) }}
         </div>
     </div>
-
-    <style>
-        .panel-section-title {
-            color: var(--rlm_gold_darker);
-            border-bottom: 2px solid var(--usual_cream);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        .row-grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-        }
-        .row-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        @media (max-width: 768px) {
-            .row-grid-3, .row-grid-2 { grid-template-columns: 1fr; }
-        }
-        .bg-light { background-color: #f9f9f9; }
-        .text-muted { color: #888; }
-    </style>
+    {{ form_end(form) }}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const wrapper = document.getElementById('movesets-wrapper');
             const addBtn = document.getElementById('add-moveset-btn');
+
             let index = wrapper.querySelectorAll('.moveset-item').length;
 
             addBtn.addEventListener('click', function() {
@@ -234,9 +206,9 @@
                 div.style.background = "#fdfdfd";
 
                 div.innerHTML = `
-                    <div style="display: flex; gap: 10px; align-items: flex-start;">
+                    <div class="moveset-row" style="align-items: flex-start;">
                         <div style="flex-grow: 1;">${newForm}</div>
-                        <button type="button" class="default-button danger-button remove-moveset" style="margin-top: 25px;">X</button>
+                        <button type="button" class="default-button danger-button remove-moveset">Delete</button>
                     </div>
                 `;
 

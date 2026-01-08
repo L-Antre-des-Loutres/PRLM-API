@@ -23,6 +23,7 @@
     --success_background_color: rgba(80, 200, 80, 0.2);
     --default_link_color: #2196f3;
     --default_link_hover_color: #1976d2;
+    --muted_color: #999;
 
     --page_background: var(--usual_white);
     --global_text_color: var(--usual_gray);
@@ -48,4 +49,5 @@
     --default_hyperlink_color: var(--default_link_color);
     --default_hyperlink_color_hover: var(--default_link_hover_color);
     --table_line_hover_color: var(--gray_table_line_hover);
+    --text_muted_color: var(--muted_color)
 }
