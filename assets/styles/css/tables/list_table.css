@@ -1,0 +1,36 @@
+.panel-table-responsive {
+    overflow-x: auto;
+}
+
+.panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.panel-table th {
+    text-align: left;
+    padding: 1rem;
+    color: var(--usual_gray);
+    border-bottom: 2px solid var(--usual_cream);
+    font-weight: 600;
+}
+
+.panel-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    vertical-align: middle;
+}
+
+.panel-table tr:last-child td {
+    border-bottom: none;
+}
+
+.panel-table tr:hover td {
+    background-color: var(--table_line_hover_color);
+}
+
+.panel-table-actions-cell {
+    white-space: nowrap;
+}

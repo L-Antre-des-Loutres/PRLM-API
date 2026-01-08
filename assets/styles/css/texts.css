@@ -1,0 +1,38 @@
+.colorful-title {
+    color: var(--rlm_gold_darker);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.hyperlink {
+    color: var(--default_hyperlink_color);
+    text-decoration: none;
+}
+
+.hyperlink:hover {
+    text-decoration: underline;
+    color: var(--default_hyperlink_color_hover);
+}
+
+.text-subtitle {
+    color: var(--usual_gray);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.text-gold {
+    color: var(--rlm_gold_dark);
+}
+
+.text-muted {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.text-end {
+    text-align: right !important;
+}
+
+.fw-bold {
+    font-weight: 600;
+}

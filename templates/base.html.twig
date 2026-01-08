@@ -24,7 +24,7 @@
 
                 <ul class="header-menu" id="prlmMenu">
                     <li class="header-item">
-                        <a href="#accueil" class="header-link">Accueil</a>
+                        <a href="/" class="header-link">Home</a>
                     </li>
 
                     <li class="header-item header-has-dropdown">
@@ -43,10 +43,10 @@
                     </li>
 
                     <li class="header-item header-has-dropdown">
-                        <a href="#produits" class="header-link">Services</a>
+                        <p class="header-link">Manage</p>
                         <ul class="header-dropdown">
                             <li class="header-dropdown-item">
-                                <a href="#produit1" class="header-dropdown-link">Service A</a>
+                                <a href="/panel/egg_groups" class="header-dropdown-link">Egg Groups</a>
                             </li>
                             <li class="header-dropdown-item">
                                 <a href="#produit2" class="header-dropdown-link">Service B</a>
@@ -55,11 +55,11 @@
                     </li>
 
                     <li class="header-item">
-                        <a href="#contact" class="header-link">Service Z</a>
-                    </li>
-
-                    <li class="header-item">
-                        <a href="/login" class="header-login-btn">Connexion</a>
+                        {% if app.user %}
+                            <a href="/logout" class="header-login-btn">Logout</a>
+                        {% else %}
+                            <a href="/login" class="header-login-btn">Login</a>
+                        {% endif %}
                     </li>
                 </ul>
             </nav>

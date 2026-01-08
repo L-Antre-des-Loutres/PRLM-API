@@ -1,0 +1,36 @@
+.default-button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    border: none;
+}
+
+.default-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--button_hover_color);
+}
+
+.orange-button {
+    background-color: var(--rlm_gold_darker);
+    color: var(--usual_white);
+}
+
+.info-button {
+    background-color: var(--info_color);
+    color: var(--usual_white);
+}
+
+.danger-button {
+    background-color: var(--danger_color);
+    color: var(--usual_white);
+}
+
+.success-button {
+    background-color: var(--success_color);
+    color: var(--usual_white);
+}
