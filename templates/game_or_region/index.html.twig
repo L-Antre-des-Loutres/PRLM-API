@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel-dual-card-wrapper">
+        <div class="panel-dual-card-container">
+
+            {# --- SECTION TABLEAU (GAUCHE) --- #}
+            <div class="panel-default-card table-section">
+                <div class="panel-default-card-header">
+                    <h2 class="colorful-title">
+                        List of Games / Regions
+                    </h2>
+                </div>
+
+                <div class="panel-table-responsive">
+                    <table class="panel-table">
+                        <thead>
+                        <tr>
+                            <th width="50">ID</th>
+                            <th>Name</th>
+                            <th>Game</th>
+                            <th>Link</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in game_or_regions %}
+                            <tr>
+                                <td class="text-muted">#{{ item.id }}</td>
+                                <td class="fw-bold">{{ item.name }}</td>
+                                <td>{{ item.game }}</td>
+                                {# On tronque le lien pour ne pas casser l'affichage #}
+                                <td>{{ item.link|u.truncate(25, '...') }}</td>
+                                <td class="text-end panel-table-actions-cell">
+
+                                    <a href="{{ path('app_panel_game_or_region_index', {'id': item.id}) }}" class="default-button info-button">
+                                        Edit
+                                    </a>
+
+                                    <form method="post" action="{{ path('app_panel_game_or_region_delete', {'id': item.id}) }}" style="display: inline-block" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                                        <button class="default-button danger-button">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" style="text-align: center">No items found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# --- SECTION FORMULAIRE (DROITE) --- #}
+            <div class="panel-default-card">
+                <div class="panel-default-card-header">
+                    <h2 class="colorful-title">
+                        {% if is_edit_mode %}
+                            Edit: <span class="text-gold">{{ form.vars.value.name }}</span>
+                        {% else %}
+                            New Game / Region
+                        {% endif %}
+                    </h2>
+                </div>
+
+                {% for message in app.flashes('success') %}
+                    <div class="panel-alert-default panel-alert-success">{{ message }}</div>
+                {% endfor %}
+
+                {{ form_start(form, {'attr': {'class': 'panel-form'}}) }}
+
+                <div class="panel-form-group">
+                    {{ form_label(form.name, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <div class="panel-form-group">
+                    {{ form_label(form.game, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.game, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_errors(form.game) }}
+                </div>
+
+                <div class="panel-form-group">
+                    {{ form_label(form.link, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.link, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_errors(form.link) }}
+                </div>
+
+                <div class="panel-form-group">
+                    {{ form_label(form.description, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {# Si description est un Textarea, le style text-input s'applique bien aussi #}
+                    {{ form_widget(form.description, {'attr': {'class': 'text-input', 'rows': 4}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="form-actions">
+                    {{ form_widget(form.save, {
+                        'label': is_edit_mode ? 'Update' : 'Create',
+                        'attr': {'class': 'default-button orange-button'}
+                    }) }}
+                    {% if is_edit_mode %}
+                        <a href="{{ path('app_panel_game_or_region_index') }}" class="default-button info-button">
+                            Cancel
+                        </a>
+                    {% endif %}
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
