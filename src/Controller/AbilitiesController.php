@@ -19,7 +19,7 @@ final class AbilitiesController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         AbilitiesRepository $repository,
-        ?Abilities $ability = null // Injection optionnelle
+        ?Abilities $ability = null
     ): Response
     {
         $editMode = true;
