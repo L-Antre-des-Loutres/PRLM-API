@@ -31,6 +31,8 @@
                         {{ form_label(form.regionalDexID, 'Reg. Dex', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.regionalDexID, {'attr': {'class': 'text-input'}}) }}
                     </div>
+                </div>
+                <div class="row-grid-3">
                     <div class="panel-form-group">
                         {{ form_label(form.spriteFile, null, {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.spriteFile) }}
@@ -103,8 +105,7 @@
                     </div>
                 </div>
                 {{ form_errors(form.stats) }}
-
-                <div class="row-grid-3 mt-3">
+                <div class="row-grid-3">
                     <div class="panel-form-group">
                         {{ form_label(form.height, null, {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.height, {'attr': {'class': 'text-input'}}) }}
@@ -119,6 +120,28 @@
                     </div>
                 </div>
 
+                <h3 class="panel-section-title">EV Yields</h3>
+                <div class="row-grid-6">
+                    <div class="panel-form-group">
+                        {{ form_widget(form.evYield.hp, {'attr': {'style': 'width: 50px'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_widget(form.evYield.attack, {'attr': {'style': 'width: 50px'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_widget(form.evYield.defense, {'attr': {'style': 'width: 50px'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_widget(form.evYield.special_attack, {'attr': {'style': 'width: 50px'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_widget(form.evYield.special_defense, {'attr': {'style': 'width: 50px'}}) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_widget(form.evYield.speed, {'attr': {'style': 'width: 50px'}}) }}
+                    </div>
+                </div>
+
                 <h3 class="panel-section-title">Assets & Descriptions</h3>
                 <div class="panel-form-group mt-2">
                     {{ form_label(form.websiteDescription, 'Description', {'label_attr': {'class': 'panel-label'}}) }}
@@ -130,17 +153,6 @@
                     <div class="row-grid-3 mt-2">
                         {{ form_row(form.hatchTimeInCycle) }}
                         {{ form_row(form.cryFile) }}
-                        <div class="mt-2 mb-2">
-                            <label class="panel-label">EV Yields:</label>
-                            <div class="ev-grid">
-                                <div>HP: {{ form_widget(form.evYield.hp, {'attr': {'style': 'width: 50px'}}) }}</div>
-                                <div>Atk: {{ form_widget(form.evYield.attack, {'attr': {'style': 'width: 50px'}}) }}</div>
-                                <div>Def: {{ form_widget(form.evYield.defense, {'attr': {'style': 'width: 50px'}}) }}</div>
-                                <div>SpA: {{ form_widget(form.evYield.special_attack, {'attr': {'style': 'width: 50px'}}) }}</div>
-                                <div>SpD: {{ form_widget(form.evYield.special_defense, {'attr': {'style': 'width: 50px'}}) }}</div>
-                                <div>Spe: {{ form_widget(form.evYield.speed, {'attr': {'style': 'width: 50px'}}) }}</div>
-                            </div>
-                        </div>
                         {{ form_row(form.formID) }}
                         {{ form_row(form.updatedAt) }}
                         {{ form_row(form.baseFriendship) }}
