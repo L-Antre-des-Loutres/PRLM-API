@@ -1,0 +1,128 @@
+.text-input {
+    padding: 0.8rem;
+    border: 1px solid var(--usual_cream);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: var(--rlm_gold_dark);
+    box-shadow: 0 0 0 3px var(--rlm_gold_lightest);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="month"],
+input[type="week"],
+textarea,
+select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem;
+    border: 1px solid var(--usual_cream);
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: inherit;
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Every focus */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="time"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--rlm_gold_dark);
+    box-shadow: 0 0 0 3px var(--rlm_gold_lightest);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem top 50%;
+    background-size: 0.65rem auto;
+    padding-right: 2rem;
+    cursor: pointer;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0 0.5rem 0 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid var(--usual_cream);
+    border-radius: 4px;
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    vertical-align: middle;
+}
+
+input[type="radio"] {
+    border-radius: 50%;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+    background-color: var(--rlm_gold_dark);
+    border-color: var(--rlm_gold_dark);
+}
+
+input[type="checkbox"]:checked::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    box-shadow: inset 1em 1em white; /* Color of the check */
+    transform-origin: center;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="radio"]:checked::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    box-shadow: inset 1em 1em white;
+}
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--rlm_gold_lightest);
+    border-color: var(--rlm_gold_dark);
+}
