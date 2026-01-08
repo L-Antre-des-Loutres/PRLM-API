@@ -16,7 +16,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        # 1. PARE-FEU API (Sans session, sans login form)
+        # API firewall
         api:
             pattern: ^/api
             stateless: true
@@ -24,7 +24,7 @@ security:
             custom_authenticators:
                 - App\Security\ApiKeyAuthenticator
 
-        # 2. PARE-FEU ADMIN / SITE (Avec session, cookie et login form)
+        # Panel firewall
         main:
             lazy: true
             provider: app_user_provider
@@ -46,7 +46,7 @@ security:
 
         # --- ADMIN RULES ---
         - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/panel, roles: ROLE_USER }
 
 when@test:
     security:
