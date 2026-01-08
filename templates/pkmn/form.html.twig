@@ -215,7 +215,6 @@
         .text-muted { color: #888; }
     </style>
 
-    {# --- JAVASCRIPT POUR LE MOVESET --- #}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const wrapper = document.getElementById('movesets-wrapper');
@@ -230,10 +229,7 @@
                 let div = document.createElement('div');
                 div.classList.add('moveset-item', 'panel-card-light', 'mb-2', 'p-3', 'border', 'rounded');
                 div.style.background = "#fdfdfd";
-
-                // On reconstruit le HTML pour inclure le bouton delete proprement
-                // Note: Le prototype Symfony contient tout le HTML du sous-formulaire.
-                // Ici, j'utilise une astuce CSS flexbox pour aligner le bouton X à droite
+                
                 div.innerHTML = `
                     <div style="display: flex; gap: 10px; align-items: flex-start;">
                         <div style="flex-grow: 1;">${newForm}</div>
