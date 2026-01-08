@@ -10,11 +10,10 @@ use App\Entity\PkmnTypes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PkmnAndMovesetType extends AbstractType
 {
@@ -39,9 +38,38 @@ class PkmnAndMovesetType extends AbstractType
             ->add('baseFriendship')
             ->add('hatchTimeInCycle')
             ->add('cryFile')
-            ->add('spriteName')
-            ->add('shinySpriteName')
-            ->add('artworkName')
+            ->add('spriteFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Delete current image',
+                'download_uri' => false, // On ne veut pas de lien de téléchargement brut
+                'image_uri' => true,     // Affiche l'image actuelle si elle existe
+                'asset_helper' => true,  // Utilise le système d'asset de Symfony
+                'label' => 'Sprite File',
+                'attr' => ['class' => 'file-input'] // Pour le CSS
+            ])
+
+            ->add('shinySpriteFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Delete current image',
+                'download_uri' => false,
+                'image_uri' => true,
+                'asset_helper' => true,
+                'label' => 'Shiny File',
+                'attr' => ['class' => 'file-input']
+            ])
+
+            ->add('artworkFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Delete current image',
+                'download_uri' => false,
+                'image_uri' => true,
+                'asset_helper' => true,
+                'label' => 'Artwork File',
+                'attr' => ['class' => 'file-input']
+            ])
             ->add('updatedAt')
             ->add('firstType', EntityType::class, [
                 'class' => PkmnTypes::class,

@@ -110,16 +110,19 @@
             <h3 class="panel-section-title mt-4">Assets & Descriptions</h3>
             <div class="row-grid-3">
                 <div class="panel-form-group">
-                    {{ form_label(form.spriteName, 'Sprite File', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.spriteName, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_label(form.spriteFile, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.spriteFile) }}
+                    {{ form_errors(form.spriteFile) }}
                 </div>
                 <div class="panel-form-group">
-                    {{ form_label(form.shinySpriteName, 'Shiny File', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.shinySpriteName, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_label(form.shinySpriteFile, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.shinySpriteFile) }}
+                    {{ form_errors(form.shinySpriteFile) }}
                 </div>
                 <div class="panel-form-group">
-                    {{ form_label(form.artworkName, 'Artwork File', {'label_attr': {'class': 'panel-label'}}) }}
-                    {{ form_widget(form.artworkName, {'attr': {'class': 'text-input'}}) }}
+                    {{ form_label(form.artworkFile, null, {'label_attr': {'class': 'panel-label'}}) }}
+                    {{ form_widget(form.artworkFile) }}
+                    {{ form_errors(form.artworkFile) }}
                 </div>
             </div>
             <div class="panel-form-group mt-2">
