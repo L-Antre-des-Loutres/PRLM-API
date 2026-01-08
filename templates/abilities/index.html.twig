@@ -4,7 +4,7 @@
     <div class="panel-dual-card-wrapper">
         <div class="panel-dual-card-container">
 
-            {# --- SECTION TABLEAU (GAUCHE) --- #}
+            <!-- Left pat: List -->
             <div class="panel-default-card table-section">
                 <div class="panel-default-card-header">
                     <h2 class="colorful-title">
@@ -28,7 +28,6 @@
                             <tr>
                                 <td class="text-muted">#{{ ability.id }}</td>
                                 <td class="fw-bold">{{ ability.name }}</td>
-                                {# On tronque le texte s'il est trop long pour ne pas casser le tableau #}
                                 <td>{{ ability.inGameDescription|u.truncate(30, '...') }}</td>
                                 <td>{{ ability.websiteDescription|u.truncate(30, '...') }}</td>
                                 <td class="text-end panel-table-actions-cell">
@@ -54,7 +53,7 @@
                 </div>
             </div>
 
-            {# --- SECTION FORMULAIRE (DROITE) --- #}
+            <!-- Right pat: Form -->
             <div class="panel-default-card">
                 <div class="panel-default-card-header">
                     <h2 class="colorful-title">
