@@ -29,6 +29,10 @@
     font-size: 0.9em;
 }
 
+.text-end {
+    text-align: right !important;
+}
+
 .fw-bold {
     font-weight: 600;
 }

@@ -21,3 +21,24 @@
     align-items: center;
     justify-content: center;
 }
+
+.panel-dual-card-wrapper {
+    min-height: 80vh;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+.panel-dual-card-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 992px) {
+    .panel-dual-card-container {
+        grid-template-columns: 1fr; /* Une seule colonne */
+    }
+}

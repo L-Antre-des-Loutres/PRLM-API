@@ -5,6 +5,7 @@
 @import "css/forms/text_inputs.css";
 @import "css/containers/alerts.css";
 @import "css/containers/defaults.css";
+@import "css/tables/list_table.css";
 @import "css/texts.css";
 
 * {

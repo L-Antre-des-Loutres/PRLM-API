@@ -19,3 +19,18 @@
     background-color: var(--rlm_gold_darker);
     color: var(--usual_white);
 }
+
+.info-button {
+    background-color: var(--info_color);
+    color: var(--usual_white);
+}
+
+.danger-button {
+    background-color: var(--danger_color);
+    color: var(--usual_white);
+}
+
+.success-button {
+    background-color: var(--success_color);
+    color: var(--usual_white);
+}

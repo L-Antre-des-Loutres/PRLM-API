@@ -11,6 +11,7 @@
     --usual_cream: #fde8e8;
     --lighten_color_alpha: rgba(255, 255, 255, 0.2);
     --darken_color_alpha: rgba(0, 0, 0, 0.2);
+    --gray_table_line_hover: rgba(0, 0, 0, 0.075);
     --info_color: #2196f3;
     --info_light_color: #a7d7f9;
     --info_background_color: rgba(80, 160, 240, 0.2);
@@ -46,4 +47,5 @@
     --alert_danger_outline_color: var(--danger_light_color);
     --default_hyperlink_color: var(--default_link_color);
     --default_hyperlink_color_hover: var(--default_link_hover_color);
+    --table_line_hover_color: var(--gray_table_line_hover);
 }
