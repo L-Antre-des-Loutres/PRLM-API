@@ -26,27 +26,37 @@ class Pkmn
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotBlank(message: "The Pokemon's National ID is required.")]
+    #[Assert\Positive(message: "The Pokemon's National ID needs to be a positive number.")]
     private int $nationalDexID;
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotBlank(message: "The Pokemon's Regional ID is required.")]
+    #[Assert\Positive(message: "The Pokemon's Regional ID needs to be a positive number.")]
     private int $regionalDexID;
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotBlank(message: "The Pokemon's Form ID is required.")]
+    #[Assert\Positive(message: "The Pokemon's Form ID needs to be a positive number.")]
     private int $formID;
 
-    #[ORM\Column(length: 20)]
     #[Groups(['pkmn:read'])]
+    #[ORM\Column(length: 20)]
+    #[Assert\NotBlank(message: "The Pokemon's name is required.")]
+    #[Assert\Length(max: 20, maxMessage: "The Pokemon's name cannot be longer than 20 characters.")]
     private string $name;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotBlank(message: "The website description is required.")]
     private string $websiteDescription;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
     #[Groups(['pkmn:read'])]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: "The Pokemon's first type is required.")]
     private PkmnTypes $firstType;
 
     #[ORM\ManyToOne]
@@ -55,19 +65,26 @@ class Pkmn
 
     #[ORM\Column(length: 30)]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotBlank(message: "The category name is required.")]
+    #[Assert\Length(max: 30, maxMessage: "The category name cannot be longer than 30 characters.")]
     private string $categoryName;
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The height is required.")]
+    #[Assert\PositiveOrZero(message: "The height must be a positive number or zero.")]
     private int $height;
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The weight is required.")]
+    #[Assert\PositiveOrZero(message: "The weight must be a positive number or zero.")]
     private int $weight;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The first ability is required.")]
     private Abilities $firstAbility;
 
     #[ORM\ManyToOne]
@@ -89,7 +106,7 @@ class Pkmn
             'speed'           => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
         ],
         allowExtraFields: false,
-        missingFieldsMessage: 'La stat {{ field }} est manquante.'
+        missingFieldsMessage: 'The stat {{ field }} is missing.'
     )]
     #[Groups(['pkmn:read'])]
     private array $stats = [];
@@ -105,27 +122,33 @@ class Pkmn
             'speed'           => [new Assert\Type('integer'), new Assert\PositiveOrZero()],
         ],
         allowExtraFields: false,
-        missingFieldsMessage: 'La stat {{ field }} est manquante.'
+        missingFieldsMessage: 'The stat {{ field }} is missing.'
     )]
     #[Groups(['pkmn:read'])]
     private array $evYield = [];
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The base EXP yield is required.")]
+    #[Assert\PositiveOrZero(message: "The base EXP yield must be a positive number or zero.")]
     private int $baseExpYield;
 
     #[ORM\ManyToOne(inversedBy: 'pkmns')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The leveling rate is required.")]
     private LevelingRate $levelingRate;
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The base friendship is required.")]
+    #[Assert\PositiveOrZero(message: "The base friendship must be a positive number or zero.")]
     private int $baseFriendship;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The first egg group is required.")]
     private EggGroups $firstEggGroup;
 
     #[ORM\ManyToOne]
@@ -134,6 +157,8 @@ class Pkmn
 
     #[ORM\Column]
     #[Groups(['pkmn:read'])]
+    #[Assert\NotNull(message: "The hatch time is required.")]
+    #[Assert\Positive(message: "The hatch time must be a positive number.")]
     private int $hatchTimeInCycle;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -177,10 +202,6 @@ class Pkmn
     #[Groups(['pkmn:read'])]
     private Collection $pkmnSpawns;
 
-    // =======
-    // SPRITES
-    // =======
-
     #[Vich\UploadableField(mapping: 'pkmn_images', fileNameProperty: 'spriteName')]
     private ?File $spriteFile = null;
 
@@ -198,10 +219,6 @@ class Pkmn
 
     #[ORM\Column(nullable: true)]
     private ?string $artworkName = null;
-
-    // ==========
-    // UPDATED AT
-    // ==========
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;

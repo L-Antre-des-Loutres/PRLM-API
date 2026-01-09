@@ -20,23 +20,45 @@ class PkmnAndMovesetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nationalDexID')
-            ->add('regionalDexID')
-            ->add('formID')
-            ->add('name')
-            ->add('websiteDescription')
-            ->add('categoryName')
-            ->add('height')
-            ->add('weight')
+            ->add('nationalDexID', null, [
+                'required' => true
+            ])
+            ->add('regionalDexID', null, [
+                'required' => true
+            ])
+            ->add('formID', null, [
+                'required' => true
+            ])
+            ->add('name', null, [
+                'required' => true
+            ])
+            ->add('websiteDescription', null, [
+                'required' => true
+            ])
+            ->add('categoryName', null, [
+                'required' => true
+            ])
+            ->add('height', null, [
+                'required' => true
+            ])
+            ->add('weight', null, [
+                'required' => true
+            ])
             ->add('stats', PkmnStatsType::class, [
+                'required' => true,
                 'label' => false
             ])
             ->add('evYield', PkmnStatsType::class, [
+                'required' => true,
                 'label' => false
             ])
-            ->add('baseExpYield', null, ['attr' => ['class' => 'text-input']])
-            ->add('baseFriendship')
-            ->add('hatchTimeInCycle')
+            ->add('baseExpYield', null, ['attr' => ['class' => 'text-input'], 'required' => true])
+            ->add('baseFriendship', null, [
+                'required' => true
+            ])
+            ->add('hatchTimeInCycle', null, [
+                'required' => true
+            ])
             ->add('cryFile')
             ->add('spriteFile', VichImageType::class, [
                 'required' => false,
@@ -77,10 +99,12 @@ class PkmnAndMovesetType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('firstAbility', EntityType::class, [
+                'required' => true,
                 'class' => Abilities::class,
                 'choice_label' => 'name',
             ])
             ->add('secondAbility', EntityType::class, [
+                'required' => false,
                 'class' => Abilities::class,
                 'choice_label' => 'name',
             ])
