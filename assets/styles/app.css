@@ -1,8 +1,8 @@
 @import "variables/colors.css";
 @import "css/header.css";
-@import "css/forms/_forms.css";
-@import "css/forms/button.css";
-@import "css/forms/text_inputs.css";
+@import "css/forms/forms.css";
+@import "css/button.css";
+@import "css/forms/inputs.css";
 @import "css/containers/alerts.css";
 @import "css/containers/defaults.css";
 @import "css/tables/list_table.css";

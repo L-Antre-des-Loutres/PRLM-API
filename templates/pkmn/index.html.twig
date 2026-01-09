@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel-container">
+
+        <div class="panel-default-card">
+            <div class="panel-default-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="colorful-title">Pokedex</h2>
+                <a href="{{ path('app_panel_pkmn_new') }}" class="default-button orange-button">
+                    + New Pokémon
+                </a>
+            </div>
+
+            {% for message in app.flashes('success') %}
+                <div class="panel-alert-default panel-alert-success">{{ message }}</div>
+            {% endfor %}
+
+            <div class="panel-table-responsive">
+                <table class="panel-table">
+                    <thead>
+                    <tr>
+                        <th width="50">Dex</th>
+                        <th width="80">Sprite</th>
+                        <th>Name</th>
+                        <th>Types</th>
+                        <th>Abilities</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for pkmn in pkmn_list %}
+                        <tr>
+                            <td class="text-muted">#{{ pkmn.nationalDexID }}</td>
+                            <td>
+                                {% if pkmn.spriteName %}
+                                    <img src="/images/sprites/{{ pkmn.spriteName }}" alt="sprite" style="height: 40px;">
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td class="fw-bold">{{ pkmn.name }}</td>
+                            <td>
+                                <span class="badge" style="background: #333; color: white; padding: 2px 5px; border-radius: 4px;">
+                                    {{ pkmn.firstType ? pkmn.firstType.name : '?' }}
+                                </span>
+                                {% if pkmn.secondType %}
+                                    <span class="badge" style="background: #333; color: white; padding: 2px 5px; border-radius: 4px;">
+                                        {{ pkmn.secondType.name }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td style="font-size: 0.9em;">
+                                {{ pkmn.firstAbility ? pkmn.firstAbility.name : '' }}
+                            </td>
+                            <td class="text-end panel-table-actions-cell">
+                                <a href="{{ path('app_panel_pkmn_edit', {'id': pkmn.id}) }}" class="default-button info-button">Edit</a>
+
+                                <form method="post" action="{{ path('app_panel_pkmn_delete', {'id': pkmn.id}) }}" style="display: inline-block" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pkmn.id) }}">
+                                    <button class="default-button danger-button">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center py-4">No Pokémon found in the database.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
