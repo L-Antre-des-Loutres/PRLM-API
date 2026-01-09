@@ -56,24 +56,27 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+    margin-top: 1.5rem;
 }
 .row-grid-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .row-grid-6 {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
+    margin-top: 1.5rem;
 }
 
 .moveset-row {
     display: flex;
     gap: 10px;
     align-items: flex-end;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .moveset-checks {

@@ -22,14 +22,34 @@
                     <div class="panel-form-group">
                         {{ form_label(form.name, null, {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.name, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.name) }}
                     </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.categoryName, 'Category', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.categoryName, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.categoryName) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.levelingRate, 'Leveling Rate', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.levelingRate, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.levelingRate) }}
+                    </div>
+                </div>
+                <div class="row-grid-3">
                     <div class="panel-form-group">
                         {{ form_label(form.nationalDexID, 'Nat. Dex', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.nationalDexID, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.nationalDexID) }}
                     </div>
                     <div class="panel-form-group">
                         {{ form_label(form.regionalDexID, 'Reg. Dex', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.regionalDexID, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.regionalDexID) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.formID, 'Form ID', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.formID, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.formID) }}
                     </div>
                 </div>
                 <div class="row-grid-3">
@@ -49,31 +69,66 @@
                         {{ form_errors(form.artworkFile) }}
                     </div>
                 </div>
+                <div class="row-grid-2">
+                    <div class="panel-form-group">
+                        {{ form_label(form.firstEggGroup, 'Egg Group 1', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.firstEggGroup, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.firstEggGroup) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.secondEggGroup, 'Egg Group 2', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.secondEggGroup, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.secondEggGroup) }}
+                    </div>
+                </div>
+                <div class="row-grid-2">
+                    <div class="panel-form-group">
+                        {{ form_label(form.hatchTimeInCycle, 'Hatch Time (Cycles)', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.hatchTimeInCycle, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.hatchTimeInCycle) }}
+                    </div>
+                    <div class="panel-form-group">
+                        {{ form_label(form.baseExpYield, 'Exp Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.baseExpYield, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.baseExpYield) }}
+                    </div>
+                </div>
+                <div class="row-grid-2">
+                    <div class="panel-form-group">
+                        {{ form_label(form.cryFile, 'Cry File', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.cryFile, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.cryFile) }}
+                    </div>
+                </div>
 
                 <h3 class="panel-section-title">Types & Abilities</h3>
                 <div class="row-grid-2">
                     <div class="panel-form-group">
                         {{ form_label(form.firstType, 'Type 1', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.firstType, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.firstType) }}
                     </div>
                     <div class="panel-form-group">
                         {{ form_label(form.secondType, 'Type 2', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.secondType, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.secondType) }}
                     </div>
                 </div>
-
-                <div class="row-grid-3 mt-2">
+                <div class="row-grid-3">
                     <div class="panel-form-group">
                         {{ form_label(form.firstAbility, 'Ability 1', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.firstAbility, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.firstAbility) }}
                     </div>
                     <div class="panel-form-group">
                         {{ form_label(form.secondAbility, 'Ability 2', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.secondAbility, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.secondAbility) }}
                     </div>
                     <div class="panel-form-group">
                         {{ form_label(form.hiddenAbility, 'Hidden Ability', {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.hiddenAbility, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.hiddenAbility) }}
                     </div>
                 </div>
 
@@ -109,36 +164,45 @@
                     <div class="panel-form-group">
                         {{ form_label(form.height, null, {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.height, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.height) }}
                     </div>
                     <div class="panel-form-group">
                         {{ form_label(form.weight, null, {'label_attr': {'class': 'panel-label'}}) }}
                         {{ form_widget(form.weight, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.weight) }}
                     </div>
                     <div class="panel-form-group">
-                        {{ form_label(form.baseExpYield, 'Exp Yield', {'label_attr': {'class': 'panel-label'}}) }}
-                        {{ form_widget(form.baseExpYield, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_label(form.baseFriendship, 'Friendship', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.baseFriendship, {'attr': {'class': 'text-input'}}) }}
+                        {{ form_errors(form.baseFriendship) }}
                     </div>
                 </div>
 
                 <h3 class="panel-section-title">EV Yields</h3>
                 <div class="row-grid-6">
                     <div class="panel-form-group">
-                        {{ form_widget(form.evYield.hp, {'attr': {'style': 'width: 50px'}}) }}
+                        {{ form_label(form.evYield.hp, 'HP Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.evYield.hp, {'attr': {'style': 'width: 100%'}}) }}
                     </div>
                     <div class="panel-form-group">
-                        {{ form_widget(form.evYield.attack, {'attr': {'style': 'width: 50px'}}) }}
+                        {{ form_label(form.evYield.attack, 'Atk Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.evYield.attack, {'attr': {'style': 'width: 100%'}}) }}
                     </div>
                     <div class="panel-form-group">
-                        {{ form_widget(form.evYield.defense, {'attr': {'style': 'width: 50px'}}) }}
+                        {{ form_label(form.evYield.defense, 'Def Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.evYield.defense, {'attr': {'style': 'width: 100%'}}) }}
                     </div>
                     <div class="panel-form-group">
-                        {{ form_widget(form.evYield.special_attack, {'attr': {'style': 'width: 50px'}}) }}
+                        {{ form_label(form.evYield.special_attack, 'SpA Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.evYield.special_attack, {'attr': {'style': 'width: 100%'}}) }}
                     </div>
                     <div class="panel-form-group">
-                        {{ form_widget(form.evYield.special_defense, {'attr': {'style': 'width: 50px'}}) }}
+                        {{ form_label(form.evYield.special_defense, 'SpD Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.evYield.special_defense, {'attr': {'style': 'width: 100%'}}) }}
                     </div>
                     <div class="panel-form-group">
-                        {{ form_widget(form.evYield.speed, {'attr': {'style': 'width: 50px'}}) }}
+                        {{ form_label(form.evYield.speed, 'Spe Yield', {'label_attr': {'class': 'panel-label'}}) }}
+                        {{ form_widget(form.evYield.speed, {'attr': {'style': 'width: 100%'}}) }}
                     </div>
                 </div>
 
@@ -146,20 +210,16 @@
                 <div class="panel-form-group mt-2">
                     {{ form_label(form.websiteDescription, 'Description', {'label_attr': {'class': 'panel-label'}}) }}
                     {{ form_widget(form.websiteDescription, {'attr': {'class': 'text-input', 'rows': 3}}) }}
+                    {{ form_errors(form.websiteDescription) }}
                 </div>
 
                 <div>
-                    <small class="text-muted">Technical Details: Hatch Time, Cry File, EV Yield, Form ID, Updated At, Egg Groups...</small>
                     <div class="row-grid-3 mt-2">
-                        {{ form_row(form.hatchTimeInCycle) }}
-                        {{ form_row(form.cryFile) }}
-                        {{ form_row(form.formID) }}
-                        {{ form_row(form.updatedAt) }}
-                        {{ form_row(form.baseFriendship) }}
-                        {{ form_row(form.firstEggGroup) }}
-                        {{ form_row(form.secondEggGroup) }}
-                        {{ form_row(form.categoryName) }}
-                        {{ form_row(form.levelingRate) }}
+                        <div class="panel-form-group">
+                            {{ form_label(form.updatedAt, null, {'label_attr': {'class': 'panel-label'}}) }}
+                            {{ form_widget(form.updatedAt) }}
+                            {{ form_errors(form.updatedAt) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,8 +238,16 @@
                     {% for movesetField in form.movesets %}
                         <div class="moveset-item panel-card-light">
                             <div class="moveset-row">
-                                <div style="flex: 2;">{{ form_row(movesetField.move) }}</div>
-                                <div style="flex: 1;">{{ form_row(movesetField.learnAtLevel) }}</div>
+                                <div style="flex: 2;">
+                                    {{ form_label(movesetField.move, null, {'label_attr': {'class': 'panel-label'}}) }}
+                                    {{ form_widget(movesetField.move, {'attr': {'class': 'text-input'}}) }}
+                                    {{ form_errors(movesetField.move) }}
+                                </div>
+                                <div style="flex: 1;">
+                                    {{ form_label(movesetField.learnAtLevel, null, {'label_attr': {'class': 'panel-label'}}) }}
+                                    {{ form_widget(movesetField.learnAtLevel, {'attr': {'class': 'text-input'}}) }}
+                                    {{ form_errors(movesetField.learnAtLevel) }}
+                                </div>
                                 <div class="moveset-checks">
                                     <div>{{ form_widget(movesetField.evolutionLearned) }} <label>Evo</label></div>
                                     <div>{{ form_widget(movesetField.ctLearned) }} <label>CT</label></div>
@@ -196,7 +264,7 @@
     </div>
 
     <div class="form-actions-fixed">
-        <p style="align-self: center; margin-right: 1rem;">{% if is_edit_mode %}Editing Pokemon...{% else %}Creating new Pokemon...{% endif %}</p>
+        <p style="align-self: center; margin-right: 2rem;">{% if is_edit_mode %}Editing Pokemon...{% else %}Creating new Pokemon...{% endif %}</p>
         {{ form_widget(form.save, {'attr': {'class': 'default-button orange-button'}}) }}
     </div>
 
