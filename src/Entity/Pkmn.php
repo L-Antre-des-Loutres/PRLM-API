@@ -15,6 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PkmnRepository::class)]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class Pkmn
 {
     #[ORM\Id]
@@ -716,5 +717,12 @@ class Pkmn
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamp(): void
+    {
+        $this->updatedAt = new \DateTime();
     }
 }

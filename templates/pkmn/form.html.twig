@@ -206,21 +206,11 @@
                     </div>
                 </div>
 
-                <h3 class="panel-section-title">Assets & Descriptions</h3>
+                <h3 class="panel-section-title">Descriptions</h3>
                 <div class="panel-form-group mt-2">
                     {{ form_label(form.websiteDescription, 'Description', {'label_attr': {'class': 'panel-label'}}) }}
                     {{ form_widget(form.websiteDescription, {'attr': {'class': 'text-input', 'rows': 3}}) }}
                     {{ form_errors(form.websiteDescription) }}
-                </div>
-
-                <div>
-                    <div class="row-grid-3 mt-2">
-                        <div class="panel-form-group">
-                            {{ form_label(form.updatedAt, null, {'label_attr': {'class': 'panel-label'}}) }}
-                            {{ form_widget(form.updatedAt) }}
-                            {{ form_errors(form.updatedAt) }}
-                        </div>
-                    </div>
                 </div>
             </div>
 

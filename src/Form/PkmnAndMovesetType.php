@@ -48,7 +48,6 @@ class PkmnAndMovesetType extends AbstractType
                 'label' => 'Sprite File',
                 'attr' => ['class' => 'file-input']
             ])
-
             ->add('shinySpriteFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
@@ -59,7 +58,6 @@ class PkmnAndMovesetType extends AbstractType
                 'label' => 'Shiny File',
                 'attr' => ['class' => 'file-input']
             ])
-
             ->add('artworkFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
@@ -70,7 +68,6 @@ class PkmnAndMovesetType extends AbstractType
                 'label' => 'Artwork File',
                 'attr' => ['class' => 'file-input']
             ])
-            ->add('updatedAt')
             ->add('firstType', EntityType::class, [
                 'class' => PkmnTypes::class,
                 'choice_label' => 'name',
@@ -103,8 +100,6 @@ class PkmnAndMovesetType extends AbstractType
                 'class' => EggGroups::class,
                 'choice_label' => 'name',
             ])
-
-            // Moveset
             ->add('movesets', CollectionType::class, [
                 'entry_type' => MovesetEmbeddedType::class,
                 'entry_options' => ['label' => false],
@@ -113,7 +108,6 @@ class PkmnAndMovesetType extends AbstractType
                 'by_reference' => false,
                 'label' => false
             ])
-
             ->add('save', SubmitType::class, [
                 'label' => 'Save Pokémon & Moves',
                 'attr' => ['class' => 'default-button orange-button']
