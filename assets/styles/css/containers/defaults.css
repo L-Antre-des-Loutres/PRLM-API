@@ -6,6 +6,10 @@
     border: 1px solid rgba(0,0,0,0.05);
 }
 
+.panel-default-card:hover {
+    border: 1px solid var(--rlm_gold_dark);
+}
+
 .panel-default-card-header {
     display: flex;
     justify-content: space-between;
